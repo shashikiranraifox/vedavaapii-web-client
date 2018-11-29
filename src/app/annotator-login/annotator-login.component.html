@@ -1,0 +1,40 @@
+<main role="main" class="container">
+  <div class="row">
+      <div class="col-md-7 col-sm-12 col-12 annotator-login-page">
+          <div class="annotator-login-box">
+              <div class="logo-holder">
+                  <img class="vedavaapii-logo" src="assets/vedavaapii-logo.png"><span>Vedavaapii</span>
+              </div>
+              <h5>Log in as Annotator</h5>
+              <div class="login-input-forms">
+                  <form>
+                      <div class="form-group">
+
+                          <input #input_annotator_email type="email" class="form-control" required  id="input_annotator_email" aria-describedby="emailHelp" placeholder="User Name/Email">
+
+                      </div>
+                      <div class="form-group">
+
+                          <input type="password" #input_annotator_password class="form-control" required id="input_annotator_password" placeholder="Password">
+
+                      </div>
+                      <div class="forgot-password-title">
+                          <a href="annotator-login-form.html"><p> Forgot Password?</p></a>
+                      </div>
+                      <div class="annotator-login-form-submit-btn-wrapper">
+
+                          <button type="button" id='annotator-login-btn' class="btn annotator-login-form-submit-btn" (click)="login(input_annotator_email.value,input_annotator_password.value)">Log In</button>
+                      </div>
+                  </form>
+              </div>
+              <hr>
+              <div class="annotator-login-error" id="annotator-login-error-text">Some unknown error occurred.</div>
+              <div class="login-form-text">
+                  <p>Annotators are experts attached to the Vedavaapi platform, who can understand, decipher and annotate various manuscripts.<br>If you are a normal user, <a href="#"><span>Sign In </span></a> here.</p>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+</main><!-- /.container -->
