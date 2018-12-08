@@ -1,0 +1,83 @@
+.starter-template {
+    padding: 3rem 0rem;
+    text-align: center;
+    width: 100%;
+}
+
+.home-page-def-text{
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+.home-page-def-text h2{
+    font-family: 'Myriad Pro Regular';
+    color: #4c4c4c;
+}
+.home-page-def-text p{
+    font-family: sans-serif;
+    color: #a3a3a3;
+    text-align: left;
+    font-size: 15px;
+}
+.home-page-static-icons{
+    width: 60px;
+}
+
+@media(max-width:380px){
+    .home-page-icons-with-side-heading{
+        font-family: 'Myriad Pro Regular';
+        color: #4c4c4c;
+        margin-top: 10px;
+        font-size: 20px;
+    }
+}
+.home-page-icons-with-side-heading{
+    font-family: 'Myriad Pro Regular';
+    color: #4c4c4c;
+    margin-top: 14px;
+}
+.vedavaapii-about-description{
+    /*width: 900px;
+    height: 450px;*/
+    margin-top: 30px;
+    margin-bottom: 40px;
+    padding: 40px;
+    border: 1px solid #e2e2e2;
+    box-shadow: 0.1rem 0.1rem #4c4c4c!important;
+}
+.vedavaapii-ecosystem-img-bg{
+    width: 100%;
+    height: 100%;
+}
+.vedavaapii-about-description p{
+    font-family: sans-serif;
+    color: #a3a3a3;
+    text-align: left;
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+.vedavaapii-about-description ul li{
+    text-align: left;
+    margin: 0;
+    margin-bottom: 1em;
+    padding-left: 1.5em;
+    position: relative;
+}
+.vedavaapii-about-description ul {
+    list-style: none;
+    padding: 0;
+    color: #a3a3a3;
+}
+.vedavaapii-about-description ul li:after {
+    content: '';
+    height: .6em;
+    width: .6em;
+    background: #4c4c4c;
+    display: block;
+    position: absolute;
+    transform: rotate(45deg);
+    top: .40em;
+    left: 0;
+}
+.div-img-sec{
+    padding-right: 0px;
+}

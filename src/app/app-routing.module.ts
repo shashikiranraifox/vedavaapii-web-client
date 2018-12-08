@@ -3,9 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import {AnnotatorLoginComponent} from './annotator-login/annotator-login.component';
 import { DashboardComponent } from './ui/dashboard/dashboard.component';
 import { AnnotatorAuthGuard } from './annotator-login/annotator-auth.guard';
+import { HomeComponent } from './ui/home/home.component';
 
 const routes: Routes = [
-
+  {
+    path: '',
+    component: HomeComponent
+  },
   {
     path: 'annotator/login',
     component: AnnotatorLoginComponent
