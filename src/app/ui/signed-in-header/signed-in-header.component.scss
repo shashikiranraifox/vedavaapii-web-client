@@ -1,10 +1,15 @@
-body {
-    padding-top: 5rem;
+.starter-template {
+    padding: 3rem 1.5rem;
+    text-align: center;
 }
-/*header*/
-
+.header-vedavaapii-logo-login{
+    width: 220px;
+}
 .navbar .navbar-nav{
     margin-left: auto;
+}
+.navbar {
+    padding: 0px;
 }
 .navbar .navbar-nav li a{
     color:#4c4c4c;
@@ -49,18 +54,20 @@ body {
 }
 @media(max-width:766px){
     .header-vedavaapii-logo{
-        height: 26px;
+        width: 215px;
     }
-}
-
-.header-vedavaapii-logo{
-    height: 60px;
 }
 
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#4c4c4c' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
 }
-
+.user-pic-header{
+    width: 25px;
+   
+}
+.header{
+    position: relative;
+}
 .vedavaapi-nav-menu-title {
     padding-right: .5rem;
     padding-left: .5rem;

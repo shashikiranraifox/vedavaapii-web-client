@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { EndpointsService } from '../endpoints.service';
+import { EndpointsService } from '../../endpoints.service';
 
 const LOGIN_TOKEN = 'login_token';
 
@@ -27,6 +27,13 @@ export class LoginService {
   }
 
   /**
+   * Removes the Login Token from Local Storage.
+   */
+  removeLoginToken(): void {
+    localStorage.removeItem(LOGIN_TOKEN);
+  }
+
+  /**
    *
    * Returns true if user is logged in.
    * @returns {boolean}
@@ -45,11 +52,36 @@ export class LoginService {
    * @memberof LoginService
    */
   setRepository() {
-    const httpUploadOptions = { headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'}) };
+    const httpUploadOptions = { headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'}), 
+                        withCredentials: true };
     const data = new FormData();
-    data.set('repo_name', 'vedavaapi_test2');
-    return this.http.post('https://api.vedavaapi.org/py/store/v1/repos', 'repo_name=vedavaapi_test2',
+    data.set('repo_name', 'demo');
+    return this.http.post(this.endpointService.getBaseUrl() + '/store/v1/repos', 'repo_name=demo',
      httpUploadOptions);
+  }
+
+  
+  /**
+   * Logout from the client.
+   * @param successCB 
+   * @param errorCB 
+   */
+  logout(callback: (responseFlag: boolean) => void) {
+    this.http.get(this.endpointService.getBaseUrl() + '/users/v1/logout')
+      .subscribe(
+        response => {
+          console.log('Logged out successfully');
+          if(callback != null) {
+            callback(true);
+          }
+        },
+        error => {
+          console.log('Could not logout from the vedavaapi service');
+          if(callback != null) {
+            callback(false);
+          }
+        }
+      )
   }
 
   /**
@@ -59,13 +91,13 @@ export class LoginService {
    * @param {*} $password
    * @memberof LoginService
    */
-  login($username, $password, errorCB: (string) => void, successCB: (string) => void) {
+  login($username, $password, errorCB: (message: string) => void, successCB: (token: string) => void) {
 
     this.setRepository().subscribe(
       data => {
         const httpUploadOptions = { headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'}),
             withCredentials: true};
-        this.http.post('https://api.vedavaapi.org/py/users/v1/password_login',
+        this.http.post(this.endpointService.getBaseUrl() + '/users/v1/password_login',
         'user_id=' + $username + '&user_secret=' + $password,
          httpUploadOptions).subscribe(
           response => {

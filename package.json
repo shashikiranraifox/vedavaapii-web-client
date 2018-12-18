@@ -24,8 +24,12 @@
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
+    "jquery-easing": "0.0.1",
     "ngx-bootstrap": "^3.1.2",
+    "ngx-slick-carousel": "^0.4.4",
+    "ngx-spinner": "^6.1.2",
     "rxjs": "^6.0.0",
+    "slick-carousel": "^1.8.1",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
