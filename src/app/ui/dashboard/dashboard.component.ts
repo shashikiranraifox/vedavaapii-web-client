@@ -7,7 +7,7 @@ import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/co
 })
 export class DashboardComponent implements OnInit {
   iframeHtml = '<iframe title="Mirador" src="http://localhost:8000/collection_test.html" allowfullscreen="true"'
-  + ' width="100%" height="100%" style="height:1000px;padding-left:5%;padding-right:5%;"'
+  + ' width="100%" height="100%" style="height:1000px;padding-left:5%;padding-right:5%;border: 0px;"'
   + ' webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
   
   @ViewChild('mirador_iframe') miradorDiv: ElementRef;

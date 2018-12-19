@@ -54,8 +54,6 @@ export class LoginService {
   setRepository() {
     const httpUploadOptions = { headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'}), 
                         withCredentials: true };
-    const data = new FormData();
-    data.set('repo_name', 'demo');
     return this.http.post(this.endpointService.getBaseUrl() + '/store/v1/repos', 'repo_name=demo',
      httpUploadOptions);
   }
