@@ -31,7 +31,7 @@ export class SignedInHeaderComponent implements OnInit {
           this.router.navigate(['annotator/login']);
         }else{
           //TODO: Show error message
-          alert('Unable to logout. Please retry or check with the platform administrator.')
+          alert('Unable to logout. Please retry or check with the platform administrator.');
         }
       }
     );

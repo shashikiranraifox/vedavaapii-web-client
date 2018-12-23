@@ -50,7 +50,7 @@
           </div>
 
           <div class="add-book-button-wraper">
-            <button class="btn add-book-cancel-btn">Cancel</button>
+            <a  href="/annotator/dashboard"><button class="btn add-book-cancel-btn">Cancel</button></a>
             <button class="btn add-book-proceed-btn" type="button" (click)="createBookEntry(book_title.value, book_author.value,
             book_type.value, book_description.value)">Proceed</button>
           </div>
@@ -60,14 +60,15 @@
       </div>
     </div>
 
-    <div class="starter-add-book-template" id="add_book_thumbnail_container" style="display:none;margin-top:10px;">
+    <div class="starter-add-book-template" id="add_book_thumbnail_container" style="display:none;">
       <span class="info-add-book" id="info-book-created">The book entry has been created. Please upload the thumbnail.</span>
       <h6>Upload Thumbnail(Step 2 of 3)</h6>
       <hr class="horizontal-line">
       <div class="row">
-        <div class="col-md-2 col-sm-3 col-6 upload-btn-layout">
+        <div class="col-md-6 col-sm-6 col-12 upload-btn-layout">
           <div class="add-book-thumbnail custom-file" style="float:none;">
-            <input type="file" class="custom-file-input" id="book_thumbnail" lang="en" name="book_thumbnail" (change)="onThumbnailFileChanged($event)" #fileInput accept="image/png, image/jpeg, image/jpg">
+            <input type="file" class="custom-file-input" id="book_thumbnail" lang="en" name="book_thumbnail" (change)="onThumbnailFileChanged($event)"
+              #fileInput accept="image/png, image/jpeg, image/jpg">
             <img id="img_book_thumbnail" src="assets/book-thumbnail.png" class="thumbnail-book-image">
 
           </div>
@@ -76,30 +77,59 @@
 
       </div>
       <div class="row">
-        <div class="col-md-3 col-sm-3 col-12 upload-btn-layout">
+        <div class="col-md-6 col-sm-6 col-12 upload-btn-layout">
           <div class="add-book-skip-button-wrapper">
-            <button class="btn add-book-cancel-btn">Skip</button>
+            <button class="btn add-book-cancel-btn"  (click)="showAddPageComponents()">Skip</button>
             <button class="btn add-book-proceed-btn" (click)="onThumbnailUpload()">Upload</button>
           </div>
         </div>
-     </div>
-     <div class="row">
-       <div class="col-md-12 col-sm-12 col-12">
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-12">
           <span class="upload_error_message" id="error-upload-thumbnail">Unknown error. Please retry after sometime.</span>
-       </div>
-     </div>
-      
+        </div>
+      </div>
+
     </div>
 
     <div class="starter-add-book-template" id="add_page_container" style="display:none;">
       <h6>Add Pages(Step 3 of 3)</h6>
       <hr class="horizontal-line">
       <div class="row">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-12">
+              <div class="form-group input-files-upload-form">
+                <label class="control-label" for="page-image-file" id="info-upload-page">Please upload a JPEG or PNG
+                  file.</label>
+                <input type="file" name="page-image-file" id="page-image-file" class="filestyle" data-icon="false"
+                  #fileInput (change)="onPageImageSelected($event)" accept="image/png, image/jpeg, image/jpg">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-12 upload-page-btn-layout">
+              <span class="upload_error_message" id="error-upload-page">Unable to upload the page. Please retry or
+                contact the platform administrator.</span>
+
+              <div class="add-book-finish-upload-button-wrapper">
+                <a href="/annotator/dashboard"><button class="btn add-book-cancel-btn">Finish</button></a>
+                <button class="btn add-book-proceed-btn" (click)="onPageUpload()">Upload</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <div class="row">
 
         <div class="col-md-12 col-sm-12 col-12">
           <div class="add-images-carousel">
 
-            <p>Books &gt; A Beidle Path in Tahiti</p>
+            <p id="book-title-carousel">(Book title comes here)</p>
             <hr class="horizontal-line">
             <div class="col-md-12 col-sm-12 col-12 appoinments-carousel">
               <div id="ca-container" class="ca-container">
@@ -121,16 +151,16 @@
 
             </div>
 
-            <button (click)="addSlide()">Add</button>
+            <!-- <button (click)="addSlide()">Add</button>
             <button (click)="removeSlide()">Remove</button>
             <button (click)="slickModal.slickGoTo(2)">slickGoto 2</button>
-            <button (click)="slickModal.unslick()">unslick</button>
+            <button (click)="slickModal.unslick()">unslick</button> -->
           </div>
         </div>
       </div>
 
 
-      <div class="row" style="display:none;">
+      <!-- <div class="row" style="display:none;">
         <div class="col-md-12 col-sm-12 col-12">
           <div class="add-images-carousel">
             <p>Books &gt; A Beidle Path in Tahiti</p>
@@ -155,8 +185,8 @@
             </div>
           </div>
         </div>
-
       </div>
+ -->
     </div>
     <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="large" color="#fff" type="timer">
     </ngx-spinner>

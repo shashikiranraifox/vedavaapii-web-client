@@ -15,33 +15,27 @@ import { NgxSpinnerService } from 'ngx-spinner';
  */
 export class AddBookComponent implements OnInit {
 
+  private bookTitle: string;
+
   private uploadedBookId: any;
 
   private selectedThumbnailFile: File;
 
   private imagePreview: any;
 
+  private selectedPageFile: File;
+
+  private bookPageCount: number;
+
   slides = [
-    { img: "http://placehold.it/480x640/000000" },
-    { img: "http://placehold.it/480x640/111111" },
-    { img: "http://placehold.it/480x640/333333" },
-    { img: "http://placehold.it/480x640/666666" },
-    { img: "http://placehold.it/480x640/000000" },
-    { img: "http://placehold.it/480x640/111111" },
-    { img: "http://placehold.it/480x640/333333" },
-    { img: "http://placehold.it/480x640/666666" },
-    { img: "http://placehold.it/480x640/000000" },
-    { img: "http://placehold.it/480x640/111111" },
-    { img: "http://placehold.it/480x640/333333" },
-    { img: "http://placehold.it/480x640/666666" },
-    { img: "http://placehold.it/480x640/000000" },
-    { img: "http://placehold.it/480x640/111111" },
-    { img: "http://placehold.it/480x640/333333" },
-    { img: "http://placehold.it/480x640/666666" }
+
   ];
-  slideConfig = { "slidesToShow": 8, "slidesToScroll": 16 };
+
+  slideConfig = { "slidesToShow": 8, "slidesToScroll": 0 };
+
   addSlide() {
     this.slides.push({ img: "http://placehold.it/350x150/777777" })
+    this.slideConfig.slidesToScroll = this.bookPageCount;
   }
 
   removeSlide() {
@@ -63,6 +57,16 @@ export class AddBookComponent implements OnInit {
   beforeChange(e) {
     console.log('beforeChange');
   }
+
+  constructor(private endpointService: EndpointsService, private http: HttpClient,
+    private spinner: NgxSpinnerService) {
+
+  }
+
+  ngOnInit() {
+    //this.uploadedBookId = "5c178cd0656e3964db0e160b";//Test book
+  }
+
 
   /**
    * Performs validation of basic book information.
@@ -87,6 +91,83 @@ export class AddBookComponent implements OnInit {
     }
     return true;
   }
+
+  /**
+   * Shows Add Page Component
+   */
+  showAddPageComponents(){
+    $("#add_book_thumbnail_container").css("display", "none");
+    $("#add_page_container").css("display", "block");
+
+    if(this.bookTitle != null) {
+      $("#book-title-carousel").text("Books > " + this.bookTitle);
+    }
+  }
+  /**
+   * Uploads the Page of a Book.
+   */
+  onPageUpload(){
+    $("#error-upload-page").css("display", "none");
+    if(this.uploadedBookId == null){
+      $("#error-upload-page").text("Book details missing, the session may have been lost. Please login afresh and try again.");
+      $("#error-upload-page").css("display", "block");
+      return;
+    }//if
+
+    if (this.selectedPageFile == null) {
+      $('#error-upload-page').text("Please select a PNG or JPG file to upload.");
+      $("#error-upload-page").css("display", "block");
+      return;
+    }
+    
+    let page_json = {
+      jsonClass: "Page",
+      purpose: "page",
+      selector: {
+        jsonClass: "QualitativeSelector",
+      },
+      source: this.uploadedBookId,
+    };
+
+    const httpUploadOptions = {
+      headers: new HttpHeaders({ 'Accept': 'application/json' }),
+      withCredentials: true
+    };
+
+    const uploadData = new FormData();
+    uploadData.append('files', this.selectedThumbnailFile);
+    uploadData.set("files_purpose", "pagination");
+    uploadData.set("resource_json", JSON.stringify(page_json));
+
+
+    this.spinner.show();
+    return this.http.post(this.endpointService.getBaseUrl() + '/ullekhanam/v1/resources', uploadData,
+      httpUploadOptions).subscribe(
+        response => {
+          this.spinner.hide();
+          $('#page-image-file').val('');
+          $('#info-upload-page').text("Page uploaded successfully. Continue to add more pages or click on Finish to go to the dashboard.");
+          //Uploads sample Page; replace with original Page thumbnail
+          this.addSlide();
+          this.selectedPageFile = null;
+        },
+        error => {
+          this.spinner.hide();
+          $("#error-upload-page").css("display", "block");
+          let errorCode = this.getResponseErrorCode(error);
+          if (errorCode == 403) {
+            $("#error-add-book").text("Repository not set, perhaps login was not proper. Please logout and login afresh before next attempt.");
+          } else if (errorCode == 401) {
+            $("#error-add-book").text("Unauthorized call, session may have expired. Please login afresh and retry.");
+          } else if (errorCode == 400) {
+            $("#error-add-book").text("Bad Request. Please contact the platform administartor.");
+          }else{
+            $("#error-upload-page").text("Unable to upload the page. Please retry or contact the platform administrator.");
+          }
+        }
+      );
+  }
+  
   /**
    * Creates a Book Entry on the Vedavaapi Platform.
    * @param $book_title 
@@ -103,7 +184,8 @@ export class AddBookComponent implements OnInit {
       return;
     }
 
-
+    this.bookTitle = $book_title;
+    
     this.spinner.show();
 
     let author_array = $book_author_information.split(',');
@@ -158,7 +240,7 @@ export class AddBookComponent implements OnInit {
           $("#book_type").attr("readonly", "true");
           $("#book_author").attr("readonly", "true");
           $("#book_description").attr("readonly", "true");
-          $("#add_book_thumbnail_container").css("display", "inline");
+          $("#add_book_thumbnail_container").css("display", "block");
 
           const responseStr = JSON.stringify(response);
           JSON.parse(responseStr, (key, value) => {
@@ -175,6 +257,7 @@ export class AddBookComponent implements OnInit {
           }
 
           $("#info-book-created").text("The book '" + $book_title + "' has been created. Please upload the thumbnail.");
+          this.bookTitle = $book_title;
         },
         error => {
           this.spinner.hide();
@@ -196,15 +279,7 @@ export class AddBookComponent implements OnInit {
   }
 
 
-  constructor(private endpointService: EndpointsService, private http: HttpClient,
-    private spinner: NgxSpinnerService) {
-
-  }
-
-  ngOnInit() {
-    this.uploadedBookId = "5c178cd0656e3964db0e160b";//Test book
-  }
-
+  
   /**
    * Hides the Error Div elements
    */
@@ -230,6 +305,16 @@ export class AddBookComponent implements OnInit {
     return errorCode;
   }
 
+
+  /**
+   * Image file for Page selected callback.
+   * @param event
+   */
+  onPageImageSelected(event){
+    this.selectedPageFile = event.target.files[0];
+
+  }
+
   /**
    * On Thumbnail File changed callback.
    * @param event 
@@ -242,9 +327,8 @@ export class AddBookComponent implements OnInit {
       $("#img_book_thumbnail").attr('src', this.imagePreview);
     };
     reader.readAsDataURL(event.target.files[0]);
-
   }
-
+  
 
   /**
    * Method uploads Book thumbnail.
@@ -265,7 +349,8 @@ export class AddBookComponent implements OnInit {
       return;
     }
 
-    //Content-Type no required; https://stackoverflow.com/questions/46787612/file-upload-angular2-via-multipart-form-data-400-error
+    //Content-Type not required;
+    // https://stackoverflow.com/questions/46787612/file-upload-angular2-via-multipart-form-data-400-error
 
     this.spinner.show();
     const httpUploadOptions = {
@@ -285,7 +370,10 @@ export class AddBookComponent implements OnInit {
           this.spinner.hide();
           console.log(response);
           $("#add_book_thumbnail_container").css('display', 'none');
-          $("#add_page_container").css('display', 'inline');
+          $("#add_page_container").css('display', 'block');
+          if(this.bookTitle != null) {
+            $("#book-title-carousel").text("Books > " + this.bookTitle);
+          }
         },
         error => {
           this.spinner.hide();
@@ -307,7 +395,4 @@ export class AddBookComponent implements OnInit {
         }
       )
   }
-
-
-
 }// end of class declaration
