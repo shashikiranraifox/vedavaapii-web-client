@@ -5,6 +5,8 @@ import { HomeComponent } from './ui/home/home.component';
 import { AnnotatorLoginComponent } from './ui/annotator-login/annotator-login.component';
 import { AnnotatorAuthGuard } from './ui/annotator-login/annotator-auth.guard';
 import { AddBookComponent } from './ui/add-book/add-book.component';
+import { ApplicationInfoPageComponent } from './ui/application-info-page/application-info-page.component';
+
 
 const routes: Routes = [
   {
@@ -25,6 +27,11 @@ const routes: Routes = [
     component: AddBookComponent,
     canActivate: [AnnotatorAuthGuard]
   },
+  {
+    path: 'application/description',
+    component: ApplicationInfoPageComponent
+  },
+  
 ];
 
 @NgModule({
