@@ -12,6 +12,7 @@ import { AddBookComponent } from './add-book/add-book.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ApplicationInfoPageComponent } from './application-info-page/application-info-page.component';
+import { LearnerLoginPageComponent } from './learner-login-page/learner-login-page.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { ApplicationInfoPageComponent } from './application-info-page/applicatio
     SafePipe,
     AnnotatorLoginComponent,
     AddBookComponent,
-    ApplicationInfoPageComponent],
+    ApplicationInfoPageComponent,
+    LearnerLoginPageComponent],
   exports: [LayoutComponent]
 })
 export class UiModule { }
