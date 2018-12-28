@@ -22,7 +22,9 @@ footer{
     text-align: center;
     width: 100%;
 }
-
+.soc-icons{
+    width: fit-content;
+}
 .footer-links{
     h6{
         color:#1c75bc;
@@ -57,4 +59,18 @@ footer{
 .footer-icons{
     height: 38px;
     margin-right: 10px;
+}
+.footer-horizontal-line{
+    margin-bottom: 5px;
+}
+.powered-by-text{
+    color: #1c75bc;
+    font-family: sans-serif;
+    font-size: 15px;
+    width: 100%;
+    text-align: center;
+}
+.raifox-logo{
+    height: 20px;
+
 }
