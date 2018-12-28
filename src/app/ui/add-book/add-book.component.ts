@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import * as $ from 'jquery';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EndpointsService } from 'src/app/endpoints.service';
@@ -27,14 +27,18 @@ export class AddBookComponent implements OnInit {
 
   private bookPageCount: number;
 
+  private currentPageIndex: number;
+
+  @ViewChild('slickModal') slickModal;
+
   slides = [
 
   ];
 
-  slideConfig = { "slidesToShow": 8, "slidesToScroll": 0 };
+  slideConfig = { "slidesToShow": 8, "slidesToScroll": 1};
 
   addSlide() {
-    this.slides.push({ img: "http://placehold.it/350x150/777777" })
+    this.slides.push({ img: "http://placehold.it/400x150/37a8f5" })
     this.slideConfig.slidesToScroll = this.bookPageCount;
   }
 
@@ -58,6 +62,24 @@ export class AddBookComponent implements OnInit {
     console.log('beforeChange');
   }
 
+  slideLeft(){
+    this.currentPageIndex--;
+    if(this.currentPageIndex < 0){
+      this.currentPageIndex = 0;
+      return;
+    }//if
+    this.slickModal.slickGoTo(this.currentPageIndex);
+  }
+
+  slideRight(){
+    this.currentPageIndex++;
+    if(this.currentPageIndex >=  this.slides.length){
+      this.currentPageIndex = this.slides.length - 1 ;
+      return;
+    }//if
+    this.slickModal.slickGoTo(this.currentPageIndex);
+  }
+
   constructor(private endpointService: EndpointsService, private http: HttpClient,
     private spinner: NgxSpinnerService) {
 
@@ -65,6 +87,7 @@ export class AddBookComponent implements OnInit {
 
   ngOnInit() {
     //this.uploadedBookId = "5c178cd0656e3964db0e160b";//Test book
+    this.currentPageIndex = 0;
   }
 
 

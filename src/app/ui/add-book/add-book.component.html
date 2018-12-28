@@ -134,8 +134,8 @@
             <div class="col-md-12 col-sm-12 col-12 appoinments-carousel">
               <div id="ca-container" class="ca-container">
                 <div class="ca-nav">
-                  <span class="ca-nav-prev"><img src="assets/carousel-left-chev.png" class="arrow-span"></span>
-                  <span class="ca-nav-next"><img src="assets/carousel-right-chev.png" class="arrow-span"></span>
+                  <span class="ca-nav-prev" (click)="slideLeft()"><img src="assets/carousel-left-chev.png" class="arrow-span"></span>
+                  <span class="ca-nav-next" (click)="slideRight()"><img src="assets/carousel-right-chev.png" class="arrow-span"></span>
                 </div>
                 <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig" (init)="slickInit($event)"
                   (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)" (beforeChange)="beforeChange($event)">
