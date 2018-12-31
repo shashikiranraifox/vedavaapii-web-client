@@ -11,6 +11,8 @@ import { HeaderComponent } from './header/header.component';
 import { AddBookComponent } from './add-book/add-book.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { ApplicationInfoPageComponent } from './application-info-page/application-info-page.component';
+import { LearnerLoginPageComponent } from './learner-login-page/learner-login-page.component';
 
 @NgModule({
   imports: [
@@ -26,7 +28,9 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     SignedInHeaderComponent,
     SafePipe,
     AnnotatorLoginComponent,
-    AddBookComponent],
+    AddBookComponent,
+    ApplicationInfoPageComponent,
+    LearnerLoginPageComponent],
   exports: [LayoutComponent]
 })
 export class UiModule { }

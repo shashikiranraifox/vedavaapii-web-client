@@ -14,9 +14,9 @@
 }
 
 .horizontal-line{
-    border-top: 1px solid #e2e2e2;
-    display: block;
-    border-style: inset;
+    border-top: 2px solid #e2e2e2;
+   /*  display: block;
+    border-style: inset; */
     margin-top: 0px;
 }
 
@@ -204,7 +204,8 @@
     font-family: sans-serif;
     color: #a3a3a3;
     text-align: left;
-    font-size: 15px;
+    font-size: 14px;
+    font-weight: 200;
     margin-bottom: 0px;
 }
 .carousel-inside-img{
@@ -310,8 +311,8 @@
     position:absolute;
     top:5px;
     left:5px;
-    max-width: 100px;
-    max-height: 100px;
+    width: 100px;
+    height: 100px;
     /*	right:5px;*/
     /*	bottom:5px;*/
     background:#fff;
@@ -319,6 +320,11 @@
     -moz-box-shadow:1px 1px 2px rgba(0,0,0,0.2);
     -webkit-box-shadow:1px 1px 2px rgba(0,0,0,0.2);
     box-shadow:1px 1px 2px rgba(0,0,0,0.2);
+}
+.slick-slide img {
+    display: block;
+    height: 100%;
+    width: 100%;
 }
 .ca-icon{
     /*	width:233px;*/
