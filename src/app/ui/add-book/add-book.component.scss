@@ -10,11 +10,30 @@
     color: #000000;
     font-weight: 500;
     font-size: 20px;
-
 }
 
+.upload-bulk-books-button{
+    border: none;
+    background-color: inherit;
+    color: #1c75bc;
+}
+
+
+.text-want-upload-bulk-books{
+    color: #4a832c;
+    font-family: sans-serif;
+    font-size:16px;
+    text-align: right;
+}
+#upload-bulk-image{
+    margin-top: 5rem;
+
+    label{
+        width: 100%;
+    }
+}
 .horizontal-line{
-    border-top: 2px solid #e2e2e2;
+    border-top: 1px solid #e2e2e2;
    /*  display: block;
     border-style: inset; */
     margin-top: 0px;
@@ -23,6 +42,7 @@
 .book-details-forms{
     text-align: left;
 }
+
 
 .book-details-forms .form-control {
     display: block;

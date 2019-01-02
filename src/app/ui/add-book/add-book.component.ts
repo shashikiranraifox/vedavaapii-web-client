@@ -32,6 +32,7 @@ export class AddBookComponent implements OnInit {
   @ViewChild('slickModal') slickModal;
 
   slides = [
+    {img: "http://placehold.it/400x150/37a8f5"},
 
   ];
 
@@ -302,6 +303,13 @@ export class AddBookComponent implements OnInit {
   }
 
 
+  /*
+  * display bulk book uploaded
+  */
+ private showBulkUploadBooks() {
+   $('#add_page_container').css('display','none');
+   $('#upload-bulk-image').css('display','block');
+ }
   
   /**
    * Hides the Error Div elements
