@@ -97,21 +97,21 @@
               <div class="row">
                 <div class="col-md-12 col-sm-12 col-12">
                   <div class="form-group input-files-upload-form">
-                    <label class="control-label" for="page-image-file" id="info-upload-page">Please upload a JPEG or PNG
+                    <label class="control-label" for="multiple-pages-images-files" id="multi-pages-upload-info">Please upload JPEG or PNG
                       files.</label>
-                    <input type="file" name="page-image-file" id="page-image-file" class="filestyle" data-icon="false"
-                      #fileInput (change)="onPageImageSelected($event)" multiple accept="image/png, image/jpeg, image/jpg">
+                    <input type="file" name="multiple-pages-images-files" id="multiple-pages-images-files" class="filestyle" data-icon="false"
+                      #fileInput (change)="onMultiPageImageSelected($event)" multiple accept="image/png, image/jpeg, image/jpg">
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12 col-sm-12 col-12 upload-page-btn-layout">
-                  <span class="upload_error_message" id="error-upload-page">Unable to upload the page. Please retry or
+                  <span class="upload_error_message" id="error-upload-multi-pages">Unable to upload pages. Please retry or
                     contact the platform administrator.</span>
     
                   <div class="add-book-finish-upload-button-wrapper">
                     <a href="/annotator/dashboard"><button class="btn add-book-cancel-btn">Finish</button></a>
-                    <button class="btn add-book-proceed-btn" (click)="onPageUpload()">Upload</button>
+                    <button class="btn add-book-proceed-btn" (click)="onMultiPageUpload($scope)">Upload</button>
                   </div>
                 </div>
               </div>

@@ -29,6 +29,8 @@ export class AddBookComponent implements OnInit {
 
   private currentPageIndex: number;
 
+  private  pageFilesArraySelected: Array<File> = [];
+
   @ViewChild('slickModal') slickModal;
 
   slides = [
@@ -159,7 +161,7 @@ export class AddBookComponent implements OnInit {
     };
 
     const uploadData = new FormData();
-    uploadData.append('files', this.selectedThumbnailFile);
+    uploadData.append('files', this.selectedPageFile);
     uploadData.set("files_purpose", "pagination");
     uploadData.set("resource_json", JSON.stringify(page_json));
 
@@ -192,6 +194,78 @@ export class AddBookComponent implements OnInit {
       );
   }
   
+   /**
+   *  Upload multiple pages of a book.
+   * 
+   */
+  onMultiPageUpload(){
+    $("#error-upload-multi-pages").css("display", "none");
+    if(this.uploadedBookId == null){
+      $("#error-upload-multi-pages").text("Book details missing, the session may have been lost. Please login afresh and try again.");
+      $("#error-upload-multi-pages").css("display", "block");
+      return;
+    }//if
+
+    if (this.pageFilesArraySelected == null || this.pageFilesArraySelected.length == 0) {
+      $('#error-upload-multi-pages').text("Please select at least one PNG or JPG file to upload.");
+      $("#error-upload-multi-pages").css("display", "block");
+      return;
+    }
+    
+    var json_array = [];
+    var single_page_meta_data = {
+      jsonClass: "Page",
+      purpose: "page",
+      selector: {
+        jsonClass: "QualitativeSelector",
+      },
+      source: this.uploadedBookId,
+    };
+   
+
+    const httpUploadOptions = {
+      headers: new HttpHeaders({ 'Accept': 'application/json' }),
+      withCredentials: true
+    };
+   
+    const formData: any = new FormData();
+    formData.set("files_purpose", "pagination");
+    for(let i =0; i < this.pageFilesArraySelected.length; i++) {
+        json_array.concat(single_page_meta_data);
+        formData.append("files", this.pageFilesArraySelected[i]);
+    }
+    formData.set("resource_json", JSON.stringify(json_array));
+
+   
+    this.spinner.show();
+    return this.http.post(this.endpointService.getBaseUrl() + '/ullekhanam/v1/resources', formData,
+      httpUploadOptions).subscribe(
+        response => {
+          this.spinner.hide();
+          $('#multiple-pages-images-files').val('');
+          $('#multi-pages-upload-info').text("Pages uploaded successfully. Continue to add more pages or click on Finish to go to the dashboard.");
+          //Uploads sample Page; replace with original Page thumbnail
+          this.addSlide();
+          this.pageFilesArraySelected = null;
+        },
+        error => {
+          this.spinner.hide();
+          $("#error-upload-multi-pages").css("display", "block");
+          let errorCode = this.getResponseErrorCode(error);
+          if (errorCode == 403) {
+            $("#error-add-book").text("Repository not set, perhaps login was not proper. Please logout and login afresh before next attempt.");
+          } else if (errorCode == 401) {
+            $("#error-add-book").text("Unauthorized call, session may have expired. Please login afresh and retry.");
+          } else if (errorCode == 400) {
+            $("#error-add-book").text("Bad Request. Please contact the platform administartor.");
+          }else{
+            $("#error-upload-multi-pages").text("Unable to upload the selected pages. Please retry or contact the platform administrator.");
+          }
+        }
+    );
+  }
+
+
   /**
    * Creates a Book Entry on the Vedavaapi Platform.
    * @param $book_title 
@@ -345,6 +419,15 @@ export class AddBookComponent implements OnInit {
     this.selectedPageFile = event.target.files[0];
 
   }
+
+  /**
+   * Multiple files selected callback.
+   * @param event 
+   */
+  onMultiPageImageSelected(fileInput: any){
+    this.pageFilesArraySelected = <Array<File>>fileInput.target.files;
+  }
+    
 
   /**
    * On Thumbnail File changed callback.
