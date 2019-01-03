@@ -35,9 +35,9 @@
               <input maxlength="128" #book_type type="text" class="form-control" id="book_type" placeholder="Mention the type of book"
                 name="book_type" />
               <span class="helper_text">Example: Manuscript, Palm leaf document, pdf, Normal book etc</span>
-
+            
             </div>
-
+         
           </div>
         </div>
         <div class="col-md-12 col-sm-12 col-12">
@@ -91,8 +91,37 @@
       </div>
 
     </div>
+    <div id="upload-bulk-image" style="display:none">
+        <div class="row">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-12">
+                  <div class="form-group input-files-upload-form">
+                    <label class="control-label" for="multiple-pages-images-files" id="multi-pages-upload-info">Please upload JPEG or PNG
+                      files.</label>
+                    <input type="file" name="multiple-pages-images-files" id="multiple-pages-images-files" class="filestyle" data-icon="false"
+                      #fileInput (change)="onMultiPageImageSelected($event)" multiple accept="image/png, image/jpeg, image/jpg">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-12 upload-page-btn-layout">
+                  <span class="upload_error_message" id="error-upload-multi-pages">Unable to upload pages. Please retry or
+                    contact the platform administrator.</span>
+    
+                  <div class="add-book-finish-upload-button-wrapper">
+                    <a href="/annotator/dashboard"><button class="btn add-book-cancel-btn">Finish</button></a>
+                    <button class="btn add-book-proceed-btn" (click)="onMultiPageUpload($scope)">Upload</button>
+                  </div>
+                </div>
+              </div>
+            </div>    
+        </div>
+    </div>
+
 
     <div class="starter-add-book-template" id="add_page_container" style="display:none;">
+        <p class="text-want-upload-bulk-books">if you want to upload books in bulk, please click <button class="upload-bulk-books-button" (click)="showBulkUploadBooks()">here</button></p>
       <h6>Add Pages(Step 3 of 3)</h6>
       <hr class="horizontal-line">
       <div class="row">
