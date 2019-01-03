@@ -35,10 +35,54 @@ export class AddBookComponent implements OnInit {
 
   slides = [
     {img: "http://placehold.it/400x150/37a8f5"},
+    {img: "http://placehold.it/400x150/37a8f5"},
+    {img: "http://placehold.it/400x150/37a8f5"},
+    {img: "http://placehold.it/400x150/37a8f5"},
+    {img: "http://placehold.it/400x150/37a8f5"},
+    {img: "http://placehold.it/400x150/37a8f5"},
+    {img: "http://placehold.it/400x150/37a8f5"},
+    {img: "http://placehold.it/400x150/37a8f5"},
+    {img: "http://placehold.it/400x150/37a8f5"},
 
   ];
 
-  slideConfig = { "slidesToShow": 8, "slidesToScroll": 1};
+  slideConfig = { "slidesToShow": 8, "slidesToScroll": 1,
+
+  responsive: [
+    {
+      breakpoint: 1200,
+      settings: {
+        slidesToShow: 6
+      }
+    },
+    {
+      breakpoint: 990,
+      settings: {
+        slidesToShow: 5
+      }
+    },
+    {
+      breakpoint: 764,
+      settings: {
+        slidesToShow: 3
+      }
+    },
+    {
+      breakpoint: 460,
+      settings: {
+        slidesToShow: 2
+      }
+    },
+    {
+      breakpoint: 350,
+      settings: {
+        slidesToShow: 1
+      }
+    },
+  ]
+
+
+  };
 
   addSlide() {
     this.slides.push({ img: "http://placehold.it/400x150/37a8f5" })
