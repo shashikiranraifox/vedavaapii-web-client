@@ -1,0 +1,49 @@
+.all-books-page{
+    padding-top: 5rem;
+    margin: auto;
+
+    h6{
+        font-family: sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        margin-bottom: 4px;
+    }
+}
+.hr-line-all-books-page{
+    margin-top: 0px;
+}
+.book-img-holder{
+    padding: 0px 0px;
+    left: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 15px;
+    width: 120px;
+    margin-bottom: 20px !important;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+    @media (max-width:766px) {
+        margin: auto;
+        margin-top: 0px;
+        left: 0px;
+        width: 130px;
+        
+    }
+    p{
+        margin-bottom: 0px;
+        padding: 4px 4px;
+        text-align: center;
+        color: #4c4c4c;
+        font-family: sans-serif;
+        font-weight: 200;
+        font-size: 13px;
+    }
+}
+.book-img{
+    width: 120px;
+    height: 180px;
+}
+.books-list-row{
+    padding: 0px 8px;
+    margin: auto;
+}
+

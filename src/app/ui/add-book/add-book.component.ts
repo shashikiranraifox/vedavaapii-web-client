@@ -275,11 +275,11 @@ export class AddBookComponent implements OnInit {
     const formData: any = new FormData();
     formData.set("files_purpose", "pagination");
     for(let i =0; i < this.pageFilesArraySelected.length; i++) {
-        json_array.concat(single_page_meta_data);
-        formData.append("files", this.pageFilesArraySelected[i]);
+      json_array.concat(single_page_meta_data);
+      formData.append("files", this.pageFilesArraySelected[i]);
     }
     formData.set("resource_json", JSON.stringify(json_array));
-
+    
    
     this.spinner.show();
     return this.http.post(this.endpointService.getBaseUrl() + '/ullekhanam/v1/resources', formData,

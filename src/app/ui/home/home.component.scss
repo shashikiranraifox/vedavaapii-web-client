@@ -82,9 +82,14 @@
 .div-img-sec{
     padding-right: 0px;
 }
-
+.view-all-books{
+    width: fit-content;
+    float: right;
+}
 
 /* home page books  Carousel Style */
+
+
 
 .books-thumbnails-carousel{    
     padding: 0px;
@@ -102,24 +107,18 @@
     background:transparent url(../../../assets/carousel-right-chev.png) no-repeat top left;
     position:absolute;
     top:50%;
-    margin-top:-19px;
+    margin-top:-23px;
     left:-40px;
     text-indent:-9000px;
     opacity:0.7;
     cursor:pointer;
     z-index:100;
-
-    @media (max-width:1200px) {
-      left:-12px;        
-    }
 }
 .ca-nav span.ca-nav-next{
     background-position:top right;
     left:auto;
     right:-24px;
-    @media (max-width:1200px) {
-        right: 5px;        
-    }
+   
 }
 .ca-nav span:hover{
     opacity:1.0;
@@ -160,6 +159,7 @@
     box-shadow: 0.1rem 0.1rem #4c4c4c!important;
     border: 1px solid #e2e2e2;
     margin-bottom: 60px;
+    padding: 0px 50px;
 }
 
 .books-carousel-title h6{    
