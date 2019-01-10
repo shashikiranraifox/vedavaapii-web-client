@@ -32,10 +32,9 @@
                         <ngx-slick-carousel class="carousel" #slickModal="slick-carousel"  [config]="slideConfig" (init)="slickInit($event)"   (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
                             (beforeChange)="beforeChange($event)">
                             <div ngxSlickItem *ngFor="let slide of slides" class="slide" style="margin-right:0px;">
-                                <div class="ca-item">
+                                <div class="ca-item" id="id_book">
                                     <div class="ca-item-main">
-                                    <img src="{{ slide.img }}" alt="" width="100%">
-                                    <span id="error-display-book-image"></span>
+                                    <img src="{{ slide.img }}" alt="" id="id_book" width="100%">
                                     </div>
                                 </div>
                             </div>

@@ -1,6 +1,7 @@
 .all-books-page{
     padding-top: 5rem;
     margin: auto;
+    padding-bottom: 5rem;
 
     h6{
         font-family: sans-serif;
@@ -46,4 +47,19 @@
     padding: 0px 8px;
     margin: auto;
 }
+.load-more-btn-wrapper{
+    width: 100%;
+    text-align: center;
+}
 
+.load-more-btn{
+    border: 1px solid #e2e2e2;
+    color: #4c4c4c;
+    background-color: #fff;
+    font-family: sans-serif;
+    font-size: 16px;
+    border-radius: 0px;
+    padding: 3px;
+    width:140px;
+    font-weight: 400;
+}

@@ -7,12 +7,15 @@
       <hr class="hr-line-all-books-page">
       <div class="col-md-12 col-sm-12 col-12 books-list-row">
         <div class="row">
-          <div class="book-img-holder">
-            <img src="http://books.google.com/books/content?id=aGzFtAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" class="book-img"  
-              title="kiran naidu" data-content="hgakfhsd sdhfgjhsdgfh\sdf " data-trigger="hover" data-toggle="popover">
-            <p class="text-truncate">What is Ancient Philosophy?</p>
-          </div>
-          <div class="book-img-holder">
+          <div  *ngFor="let key of keys">
+                    <div *ngFor="let slide of bookStoreData[key]">
+                        <div class="book-img-holder">
+                            <img src="{{slide.img}}" class="book-img">
+                            <p class="text-truncate">{{slide.Name}}</p>
+                        </div>
+                </div>
+            </div>
+          <!-- <div class="book-img-holder">
               <img src="http://books.google.com/books/content?id=aGzFtAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" class="book-img">
               <p class="text-truncate">What is Ancient Philosophy?</p>
           </div>
@@ -47,8 +50,12 @@
           <div class="book-img-holder">
               <img src="http://books.google.com/books/content?id=aGzFtAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" class="book-img">
               <p class="text-truncate">What is Ancient Philosophy?</p>
-          </div>
+          </div> -->
         </div>
+        <div class="load-more-btn-wrapper">
+            <button class="load-more-btn" (click)="loadMore()">Load More</button>
+        </div>
+
       </div> 
     </div>
   </div>

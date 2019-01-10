@@ -4,6 +4,7 @@ import { EndpointsService } from 'src/app/endpoints.service';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -60,7 +61,11 @@ export class HomeComponent implements OnInit {
   };
   
   addSlide(fileId) {
-    this.slides.push({img: "https://api.vedavaapi.org/py/iiif_image/v1/demo/ullekhanam/"+fileId+"/full/,255/0/default.jpg"})
+    if(fileId !=null){
+      this.slides.push({img: "https://api.vedavaapi.org/py/iiif_image/v1/demo/ullekhanam/"+fileId+"/full/100,150/0/default.jpg"});
+    }else{
+      this.slides.push({img:"assets/book-default-test-thumbnail.png"});
+    }
   }
   
   removeSlide() {
@@ -144,13 +149,12 @@ export class HomeComponent implements OnInit {
               //passing filesid to carousel
               for(let index in this.fileId){
                 this.addSlide(this.fileId[index]);
+                console.log(this.addSlide);
               }
             },
           );                   
       }
      
-    );
-     
-  
+    );  
   }
 }
