@@ -3,59 +3,27 @@
 <div class="all-books-page container">
   <div class="row">
     <div class="col-md-12 col-sm-12 col-12" style="margin:auto;">
-      <h6>All Books</h6>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-6">
+                     <h6>All Books</h6>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-6">
+                        <div class="all-books-back-button">
+                          <a href="#"><p>Back</p></a>
+                        </div>
+                </div>
+            </div>         
       <hr class="hr-line-all-books-page">
       <div class="col-md-12 col-sm-12 col-12 books-list-row">
         <div class="row">
-          <div  *ngFor="let key of keys">
-                    <div *ngFor="let slide of bookStoreData[key]">
-                        <div class="book-img-holder">
-                            <img src="{{slide.img}}" class="book-img">
-                            <p class="text-truncate">{{slide.Name}}</p>
-                        </div>
-                </div>
-            </div>
-          <!-- <div class="book-img-holder">
-              <img src="http://books.google.com/books/content?id=aGzFtAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" class="book-img">
-              <p class="text-truncate">What is Ancient Philosophy?</p>
-          </div>
-          <div class="book-img-holder">
-              <img src="http://books.google.com/books/content?id=aGzFtAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" class="book-img">
-              <p class="text-truncate">What is Ancient Philosophy?</p>
-          </div>
-          <div class="book-img-holder">
-              <img src="http://books.google.com/books/content?id=aGzFtAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" class="book-img">
-              <p class="text-truncate">What is Ancient Philosophy?</p>
-          </div>
-          <div class="book-img-holder">
-              <img src="http://books.google.com/books/content?id=aGzFtAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" class="book-img">
-              <p class="text-truncate">What is Ancient Philosophy?</p>
-          </div>
-          <div class="book-img-holder">
-              <img src="http://books.google.com/books/content?id=aGzFtAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" class="book-img">
-              <p class="text-truncate">What is Ancient Philosophy?</p>
-          </div>
-          <div class="book-img-holder">
-              <img src="http://books.google.com/books/content?id=aGzFtAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" class="book-img">
-              <p class="text-truncate">What is Ancient Philosophy?</p>
-          </div>
-          <div class="book-img-holder">
-              <img src="http://books.google.com/books/content?id=aGzFtAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" class="book-img">
-              <p class="text-truncate">What is Ancient Philosophy?</p>
-          </div>
-          <div class="book-img-holder">
-              <img src="http://books.google.com/books/content?id=aGzFtAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" class="book-img">
-              <p class="text-truncate">What is Ancient Philosophy?</p>
-          </div>
-          <div class="book-img-holder">
-              <img src="http://books.google.com/books/content?id=aGzFtAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" class="book-img">
-              <p class="text-truncate">What is Ancient Philosophy?</p>
-          </div> -->
+              <div class="book-img-holder" *ngFor="let index of bookStoreData">
+                  <img src="{{index.img}}" class="book-img" >
+                  <p class="text-truncate">{{index.Name}}</p>
+              </div>
         </div>
-        <div class="load-more-btn-wrapper">
+        <div id="load-more-btn-wrapper">
             <button class="load-more-btn" (click)="loadMore()">Load More</button>
         </div>
-
       </div> 
     </div>
   </div>
