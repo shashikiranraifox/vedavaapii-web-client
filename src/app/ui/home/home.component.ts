@@ -14,14 +14,12 @@ export class HomeComponent implements OnInit {
 
 
   private currentPageIndex: number;
-  public reppoResponse : any;
+  public bookImages : any;
   public fileId:string[] = [];
   
   @ViewChild('slickModal') slickModal;
    
-  slides = [
-    
-  ];
+  slides = [];
 
   slideConfig = {"slidesToShow": 8, "slidesToScroll": 1,
 
@@ -60,6 +58,8 @@ export class HomeComponent implements OnInit {
 
   };
   
+  // passing data to carousel.
+
   addSlide(fileId) {
     if(fileId !=null){
       this.slides.push({img: "https://api.vedavaapi.org/py/iiif_image/v1/demo/ullekhanam/"+fileId+"/full/100,150/0/default.jpg"});
@@ -140,16 +140,22 @@ export class HomeComponent implements OnInit {
          this.http.get(this.endpointService.getBaseUrl() + '/ullekhanam/v1/resources' , {headers:headers,params:params,withCredentials: true,})
          .subscribe(
             Response  => {
-              $('#home-books-img-dev').show();
-              this.reppoResponse = Response;
-              //getting  the files id 
-              for(let i=0;i<this.reppoResponse.length;i++){
-                this.fileId.push(this.reppoResponse[i]["associated_resources"]["files"][0]);
+              
+              this.bookImages = Response;
+
+              if(this.bookImages.length != 0){
+                $('#home-books-img-dev').show();
+                //getting  the files id 
+                for(let i=0;i<this.bookImages.length;i++){
+                  this.fileId.push(this.bookImages[i]["associated_resources"]["files"][0]);
+                }
+                //passing filesid to carousel
+                for(let index in this.fileId){
+                  this.addSlide(this.fileId[index]);
+                }
+                
               }
-              //passing filesid to carousel
-              for(let index in this.fileId){
-                this.addSlide(this.fileId[index]);
-              }
+             
             },
           );                   
       }

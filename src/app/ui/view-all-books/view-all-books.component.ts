@@ -10,7 +10,7 @@ import * as $ from 'jquery';
 })
 export class ViewAllBooksComponent implements OnInit {
 
-  private repoImgResponse : any;
+  private bookDetails : any;
   private imgFileId :number[] = [];
   private bookName : string[] = [];
   private image_id: any;
@@ -19,7 +19,7 @@ export class ViewAllBooksComponent implements OnInit {
   constructor(private endpointService: EndpointsService, private http: HttpClient) {
 
   }
-  
+  // store book image, title.
   bookStoreData = [];
   
  /**
@@ -36,12 +36,12 @@ export class ViewAllBooksComponent implements OnInit {
   }
    
  
-
+//  passing the book image and title to template
   addBookDetails(index,imgFileId,bookName){
     if(imgFileId !=null){
       this.image_id="https://api.vedavaapi.org/py/iiif_image/v1/demo/ullekhanam/"+imgFileId+"/full/100,150/0/default.jpg";
     }else{
-      this.image_id="assets/book-default-test-thumbnail.png";   
+      this.image_id="assets/default-book-īmg.png";   
     }
        this.bookStoreData.push({Name:bookName,img:this.image_id});
   }
@@ -67,27 +67,25 @@ export class ViewAllBooksComponent implements OnInit {
         this.http.get(this.endpointService.getBaseUrl() + '/ullekhanam/v1/resources' , {headers:httpImageHeaders,params:httpImageParams,withCredentials: true,})
         .subscribe(          
           Response =>{
-            this.repoImgResponse = Response;  
-            if(this.repoImgResponse.length == 0){
-              $('#load-more-btn-wrapper').css('display','none');
-            }else{
+            this.bookDetails = Response;  
+            if(this.bookDetails.length != 0){
               $('#load-more-btn-wrapper').show(); 
-            } 
-            
 
-            for(let i=0;i<this.repoImgResponse.length;i++){
-              this.imgFileId.push(this.repoImgResponse[i]["associated_resources"]["files"][0]);
-              this.bookName.push(this.repoImgResponse[i]["title"]["chars"]); 
-              
-              if(this.repoImgResponse[i]["title"]["chars"]==null){
-                $('#load-more-btn-wrapper').css('display','none');
-              }    
-            }
-          
-            for(let index in this.bookName){             
-              this.addBookDetails(index,this.imgFileId[index],this.bookName[index]);
-            }   
+              for(let i=0;i<this.bookDetails.length;i++){
+                this.imgFileId.push(this.bookDetails[i]["associated_resources"]["files"][0]);
+                this.bookName.push(this.bookDetails[i]["title"]["chars"]); 
                 
+                if(this.bookDetails[i]["title"]["chars"]==null){
+                  $('#load-more-btn-wrapper').css('display','none');
+                }    
+              }
+            
+              for(let index in this.bookName){             
+                this.addBookDetails(index,this.imgFileId[index],this.bookName[index]);
+              }   
+            }else{             
+              $('#load-more-btn-wrapper').css('display','none');
+            } 
           }
         );
       }
@@ -114,26 +112,27 @@ export class ViewAllBooksComponent implements OnInit {
         this.http.get(this.endpointService.getBaseUrl() + '/ullekhanam/v1/resources' , {headers:httpImageHeaders,params:httpImageParams,withCredentials: true,})
         .subscribe(          
           Response =>{
-            this.repoImgResponse = Response;              
+            this.bookDetails = Response;              
            
-            if(this.repoImgResponse.length == 0){
-              $('#load-more-btn-wrapper').css('display','none');
-            } else{
+            if(this.bookDetails.length != 0){
               $('#load-more-btn-wrapper').show(); 
+              for(let i=0;i<this.bookDetails.length;i++){
+                this.imgFileId.push(this.bookDetails[i]["associated_resources"]["files"][0]);
+                this.bookName.push(this.bookDetails[i]["title"]["chars"]); 
+                if(this.bookDetails[i]["title"]["chars"] ==null){
+                  $('#load-more-btn-wrapper').css('display','none');
+                }              
+              }
+              for(let index in this.bookName){             
+                this.addBookDetails(index,this.imgFileId[index],this.bookName[index]);
+              }     
+            } else{
+              
+              $('#load-more-btn-wrapper').css('display','none');
             }  
-            for(let i=0;i<this.repoImgResponse.length;i++){
-              this.imgFileId.push(this.repoImgResponse[i]["associated_resources"]["files"][0]);
-              this.bookName.push(this.repoImgResponse[i]["title"]["chars"]); 
-              if(this.repoImgResponse[i]["title"]["chars"] ==null){
-                $('#load-more-btn-wrapper').css('display','none');
-              }              
-            }
-            for(let index in this.bookName){             
-              this.addBookDetails(index,this.imgFileId[index],this.bookName[index]);
-            }                    
+                           
           }
           
-
         );
       }
     );
