@@ -21,8 +21,7 @@ export class ViewAllBooksComponent implements OnInit {
   }
   
   bookStoreData = [];
-
-
+  
  /**
    * POST request to set the working repository.
    *
@@ -46,6 +45,11 @@ export class ViewAllBooksComponent implements OnInit {
     }
        this.bookStoreData.push({Name:bookName,img:this.image_id});
   }
+
+  /**
+   * Method Load more button
+   *
+  */
   public loadMore(){
       this.bookName = [];
       this.imgFileId = [];
@@ -64,15 +68,26 @@ export class ViewAllBooksComponent implements OnInit {
         .subscribe(          
           Response =>{
             this.repoImgResponse = Response;  
-            $('#load-more-btn-wrapper').show();
+            if(this.repoImgResponse.length == 0){
+              $('#load-more-btn-wrapper').css('display','none');
+            }else{
+              $('#load-more-btn-wrapper').show(); 
+            } 
+            
+
             for(let i=0;i<this.repoImgResponse.length;i++){
               this.imgFileId.push(this.repoImgResponse[i]["associated_resources"]["files"][0]);
-              this.bookName.push(this.repoImgResponse[i]["title"]["chars"]);              
+              this.bookName.push(this.repoImgResponse[i]["title"]["chars"]); 
+              
+              if(this.repoImgResponse[i]["title"]["chars"]==null){
+                $('#load-more-btn-wrapper').css('display','none');
+              }    
             }
-           
+          
             for(let index in this.bookName){             
               this.addBookDetails(index,this.imgFileId[index],this.bookName[index]);
-            }           
+            }   
+                
           }
         );
       }
@@ -84,6 +99,8 @@ export class ViewAllBooksComponent implements OnInit {
   ngOnInit() {
    
     $('#load-more-btn-wrapper').css('display','none');
+    
+  //  get book details
     this.setRepository().subscribe(
       data => {
         let httpImageParams = new HttpParams().set('selector_doc','{"jsonClass": "BookPortion"}')
@@ -98,15 +115,25 @@ export class ViewAllBooksComponent implements OnInit {
         .subscribe(          
           Response =>{
             this.repoImgResponse = Response;              
-            $('#load-more-btn-wrapper').show();   
+           
+            if(this.repoImgResponse.length == 0){
+              $('#load-more-btn-wrapper').css('display','none');
+            } else{
+              $('#load-more-btn-wrapper').show(); 
+            }  
             for(let i=0;i<this.repoImgResponse.length;i++){
               this.imgFileId.push(this.repoImgResponse[i]["associated_resources"]["files"][0]);
-              this.bookName.push(this.repoImgResponse[i]["title"]["chars"]);              
+              this.bookName.push(this.repoImgResponse[i]["title"]["chars"]); 
+              if(this.repoImgResponse[i]["title"]["chars"] ==null){
+                $('#load-more-btn-wrapper').css('display','none');
+              }              
             }
             for(let index in this.bookName){             
               this.addBookDetails(index,this.imgFileId[index],this.bookName[index]);
             }                    
           }
+          
+
         );
       }
     );

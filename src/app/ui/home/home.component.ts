@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit {
     if(fileId !=null){
       this.slides.push({img: "https://api.vedavaapi.org/py/iiif_image/v1/demo/ullekhanam/"+fileId+"/full/100,150/0/default.jpg"});
     }else{
-      this.slides.push({img:"assets/book-default-test-thumbnail.png"});
+      this.slides.push({img:"assets/default-book-īmg.png"});
     }
   }
   
@@ -149,7 +149,6 @@ export class HomeComponent implements OnInit {
               //passing filesid to carousel
               for(let index in this.fileId){
                 this.addSlide(this.fileId[index]);
-                console.log(this.addSlide);
               }
             },
           );                   

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as $ from 'jquery';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { EndpointsService } from 'src/app/endpoints.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -135,6 +135,7 @@ export class AddBookComponent implements OnInit {
   ngOnInit() {
     //this.uploadedBookId = "5c178cd0656e3964db0e160b";//Test book
     this.currentPageIndex = 0;
+    
   }
 
 
