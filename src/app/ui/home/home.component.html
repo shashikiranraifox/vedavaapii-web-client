@@ -7,6 +7,45 @@
             and educational divide, for reviving Indic scientifc culture.
         </p>
     </div>
+  <!-- books carousel -->
+    <div class="col-md-12 col-sm-12 col-12" id="home-books-img-dev">        
+        <div class="books-carousel-title">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-6">
+                 <h6>Latest Additions</h6>
+                </div>
+                <div class="col-md-6 col-sm-6 col-6">
+                    <div class="view-all-books">
+                      <a href="/all-books/"><p>View All</p></a>
+                    </div>
+                </div>
+            </div>         
+        </div>
+        <div class="home-page-books-carousel">
+            <div class="col-md-12 col-sm-12 col-12 books-thumbnails-carousel">
+                <div class="">
+                    <div id="home-books-ca-container" class="ca-container">
+                        <div class="ca-nav">
+                            <span class="ca-nav-prev" (click)="slideLeft()"><img src="assets/carousel-left-chev.png" class="arrow-span"></span>
+                            <span class="ca-nav-next" (click)="slideRight()"><img src="assets/carousel-right-chev.png" class="arrow-span"></span>
+                        </div>
+                        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel"  [config]="slideConfig" (init)="slickInit($event)"   (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+                            (beforeChange)="beforeChange($event)">
+                            <div ngxSlickItem *ngFor="let slide of slides" class="slide" style="margin-right:0px;">
+                                <div class="ca-item" id="id_book">
+                                    <div class="ca-item-main">
+                                    <img src="{{ slide.img }}" alt="" id="id_book" width="100%">
+                                    </div>
+                                </div>
+                            </div>
+                        </ngx-slick-carousel>
+                    </div>
+                </div>   
+            </div>    
+        </div>
+    </div>
+
+
     <div class="col-md-10 col-sm-10 col-12" style="margin: auto">
         <div class="row">
             <div class="col-md-auto col-sm-auto col-auto div-img-sec">
@@ -43,7 +82,6 @@
                         an ocean).
                     </p>
                 </div>
-
             </div>
         </div>
 

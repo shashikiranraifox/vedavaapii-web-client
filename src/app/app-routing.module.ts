@@ -7,6 +7,8 @@ import { AnnotatorAuthGuard } from './ui/annotator-login/annotator-auth.guard';
 import { AddBookComponent } from './ui/add-book/add-book.component';
 import { ApplicationInfoPageComponent } from './ui/application-info-page/application-info-page.component';
 import { LearnerLoginPageComponent } from './ui/learner-login-page/learner-login-page.component';
+import { ViewAllBooksComponent } from './ui/view-all-books/view-all-books.component';
+
 
 const routes: Routes = [
   {
@@ -34,6 +36,10 @@ const routes: Routes = [
   {
     path: 'learner/login',
     component: LearnerLoginPageComponent
+  },
+  {
+    path: 'all-books',
+    component: ViewAllBooksComponent
   },
 
   

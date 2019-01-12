@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as $ from 'jquery';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { EndpointsService } from 'src/app/endpoints.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -35,10 +35,54 @@ export class AddBookComponent implements OnInit {
 
   slides = [
     {img: "http://placehold.it/400x150/37a8f5"},
+    {img: "http://placehold.it/400x150/37a8f5"},
+    {img: "http://placehold.it/400x150/37a8f5"},
+    {img: "http://placehold.it/400x150/37a8f5"},
+    {img: "http://placehold.it/400x150/37a8f5"},
+    {img: "http://placehold.it/400x150/37a8f5"},
+    {img: "http://placehold.it/400x150/37a8f5"},
+    {img: "http://placehold.it/400x150/37a8f5"},
+    {img: "http://placehold.it/400x150/37a8f5"},
 
   ];
 
-  slideConfig = { "slidesToShow": 8, "slidesToScroll": 1};
+  slideConfig = { "slidesToShow": 8, "slidesToScroll": 1,
+
+  responsive: [
+    {
+      breakpoint: 1200,
+      settings: {
+        slidesToShow: 6
+      }
+    },
+    {
+      breakpoint: 990,
+      settings: {
+        slidesToShow: 5
+      }
+    },
+    {
+      breakpoint: 764,
+      settings: {
+        slidesToShow: 3
+      }
+    },
+    {
+      breakpoint: 460,
+      settings: {
+        slidesToShow: 2
+      }
+    },
+    {
+      breakpoint: 350,
+      settings: {
+        slidesToShow: 1
+      }
+    },
+  ]
+
+
+  };
 
   addSlide() {
     this.slides.push({ img: "http://placehold.it/400x150/37a8f5" })
@@ -91,6 +135,7 @@ export class AddBookComponent implements OnInit {
   ngOnInit() {
     //this.uploadedBookId = "5c178cd0656e3964db0e160b";//Test book
     this.currentPageIndex = 0;
+    
   }
 
 
@@ -231,11 +276,11 @@ export class AddBookComponent implements OnInit {
     const formData: any = new FormData();
     formData.set("files_purpose", "pagination");
     for(let i =0; i < this.pageFilesArraySelected.length; i++) {
-        json_array.concat(single_page_meta_data);
-        formData.append("files", this.pageFilesArraySelected[i]);
+      json_array.concat(single_page_meta_data);
+      formData.append("files", this.pageFilesArraySelected[i]);
     }
     formData.set("resource_json", JSON.stringify(json_array));
-
+    
    
     this.spinner.show();
     return this.http.post(this.endpointService.getBaseUrl() + '/ullekhanam/v1/resources', formData,

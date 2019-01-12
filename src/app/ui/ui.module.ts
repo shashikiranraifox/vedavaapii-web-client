@@ -13,6 +13,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ApplicationInfoPageComponent } from './application-info-page/application-info-page.component';
 import { LearnerLoginPageComponent } from './learner-login-page/learner-login-page.component';
+import { ViewAllBooksComponent } from './view-all-books/view-all-books.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { LearnerLoginPageComponent } from './learner-login-page/learner-login-pa
     AnnotatorLoginComponent,
     AddBookComponent,
     ApplicationInfoPageComponent,
-    LearnerLoginPageComponent],
+    LearnerLoginPageComponent,
+    ViewAllBooksComponent],
   exports: [LayoutComponent]
 })
 export class UiModule { }

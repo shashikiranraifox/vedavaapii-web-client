@@ -238,67 +238,6 @@
     height: 110px;
 }
 
-
-/** 
-  Carousel Styling starts from Here
-*/
-
-/* cards*/
-.date-section{
-    background-color: #fff;
-    text-align: center;
-    padding: 5px;
-}
-.card{
-    background-color:  #7dd6f6 !important;
-    border: 0px !important;
-    border-radius: 0px !important;
-}
-.card-title {
-    margin-bottom: 0px !important;
-    font-size: 8px;
-    float: right;
-    color: #fff;
-    width: 100%;
-    text-align: right;
-    margin: 0px;
-}
-.card-subtitle{
-    text-align: right;
-    color: #fff;
-    margin-top: 0px !important;
-    margin-bottom: 10px !important;
-    font-size: 10px;
-    width: 100%;
-
-}
-.card-text{
-    font-size: 10px;
-    color: #fff;
-    text-align: right;
-}
-.card-date{
-   font-size: 40px;
-    font-family: Merriweather;
-    margin-bottom: 0px;
-    line-height: 0.9;
-}
-.card-day{
-    margin-bottom: 0px;
-    font-family: Merriweather;
-    font-size: 10px;
-}
-.card-month{
-    margin-bottom: 0px;
-    font-family: Merriweather;
-    font-size: 10px;
-}
-
-.card-body{
-    padding: 16px !important;
-    line-height: 2.5 !important;
-}
-
 /* Circular Content Carousel Style */
 .appoinments-carousel{
    /* background: #ededed;*/
@@ -322,7 +261,7 @@
 .ca-item{
     position:relative;
     float:left;
-    width:100px;
+    width:100%;
     height:100px;
     text-align:center;
 }
@@ -333,10 +272,11 @@
 }
 .ca-item-main{
     /*	padding:20px;*/
-    position:absolute;
+    // position:absolute;
     top:5px;
     left:5px;
     width: 100px;
+    margin: auto;
     height: 100px;
     /*	right:5px;*/
     /*	bottom:5px;*/
