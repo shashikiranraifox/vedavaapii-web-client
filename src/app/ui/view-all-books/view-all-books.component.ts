@@ -11,15 +11,15 @@ import * as $ from 'jquery';
 export class ViewAllBooksComponent implements OnInit {
 
   private bookDetails : any;
-  private imgFileId :number[] = [];
-  private bookName : string[] = [];
+  private imgFileIds :number[] = [];
+  private bookNames : string[] = [];
   private image_id: any;
   public showCount : number= 0;
   
   constructor(private endpointService: EndpointsService, private http: HttpClient) {
 
   }
-  // store book image, title.
+  // store book images, title.
   bookStoreData = [];
   
  /**
@@ -37,13 +37,13 @@ export class ViewAllBooksComponent implements OnInit {
    
  
 //  passing the book image and title to template
-  addBookDetails(index,imgFileId,bookName){
-    if(imgFileId !=null){
-      this.image_id="https://api.vedavaapi.org/py/iiif_image/v1/demo/ullekhanam/"+imgFileId+"/full/100,150/0/default.jpg";
+  addBookDetails(index,imgFileIds,bookNames){
+    if(imgFileIds !=null){
+      this.image_id="https://api.vedavaapi.org/py/iiif_image/v1/demo/ullekhanam/"+imgFileIds+"/full/100,150/0/default.jpg";
     }else{
       this.image_id="assets/default-book-īmg.png";   
     }
-       this.bookStoreData.push({Name:bookName,img:this.image_id});
+       this.bookStoreData.push({Name:bookNames,img:this.image_id});
   }
 
   /**
@@ -51,8 +51,8 @@ export class ViewAllBooksComponent implements OnInit {
    *
   */
   public loadMore(){
-      this.bookName = [];
-      this.imgFileId = [];
+      this.bookNames = [];
+      this.imgFileIds = [];
       
     this.setRepository().subscribe(
       data => {
@@ -72,16 +72,16 @@ export class ViewAllBooksComponent implements OnInit {
               $('#load-more-btn-wrapper').show(); 
 
               for(let i=0;i<this.bookDetails.length;i++){
-                this.imgFileId.push(this.bookDetails[i]["associated_resources"]["files"][0]);
-                this.bookName.push(this.bookDetails[i]["title"]["chars"]); 
+                this.imgFileIds.push(this.bookDetails[i]["associated_resources"]["files"][0]);
+                this.bookNames.push(this.bookDetails[i]["title"]["chars"]); 
                 
                 if(this.bookDetails[i]["title"]["chars"]==null){
                   $('#load-more-btn-wrapper').css('display','none');
                 }    
               }
             
-              for(let index in this.bookName){             
-                this.addBookDetails(index,this.imgFileId[index],this.bookName[index]);
+              for(let index in this.bookNames){             
+                this.addBookDetails(index,this.imgFileIds[index],this.bookNames[index]);
               }   
             }else{             
               $('#load-more-btn-wrapper').css('display','none');
@@ -117,14 +117,14 @@ export class ViewAllBooksComponent implements OnInit {
             if(this.bookDetails.length != 0){
               $('#load-more-btn-wrapper').show(); 
               for(let i=0;i<this.bookDetails.length;i++){
-                this.imgFileId.push(this.bookDetails[i]["associated_resources"]["files"][0]);
-                this.bookName.push(this.bookDetails[i]["title"]["chars"]); 
+                this.imgFileIds.push(this.bookDetails[i]["associated_resources"]["files"][0]);
+                this.bookNames.push(this.bookDetails[i]["title"]["chars"]); 
                 if(this.bookDetails[i]["title"]["chars"] ==null){
                   $('#load-more-btn-wrapper').css('display','none');
                 }              
               }
-              for(let index in this.bookName){             
-                this.addBookDetails(index,this.imgFileId[index],this.bookName[index]);
+              for(let index in this.bookNames){             
+                this.addBookDetails(index,this.imgFileIds[index],this.bookNames[index]);
               }     
             } else{
               

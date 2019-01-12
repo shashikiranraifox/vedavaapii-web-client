@@ -15,10 +15,11 @@ export class HomeComponent implements OnInit {
 
   private currentPageIndex: number;
   public bookImages : any;
-  public fileId:string[] = [];
+  public fileIds:string[] = [];
   
   @ViewChild('slickModal') slickModal;
    
+  // stores the images of books.
   slides = [];
 
   slideConfig = {"slidesToShow": 8, "slidesToScroll": 1,
@@ -58,11 +59,11 @@ export class HomeComponent implements OnInit {
 
   };
   
-  // passing data to carousel.
+  // adding book image to slides object.
 
-  addSlide(fileId) {
-    if(fileId !=null){
-      this.slides.push({img: "https://api.vedavaapi.org/py/iiif_image/v1/demo/ullekhanam/"+fileId+"/full/100,150/0/default.jpg"});
+  addSlide(fileIds) {
+    if(fileIds !=null){
+      this.slides.push({img: "https://api.vedavaapi.org/py/iiif_image/v1/demo/ullekhanam/"+fileIds+"/full/100,150/0/default.jpg"});
     }else{
       this.slides.push({img:"assets/default-book-īmg.png"});
     }
@@ -147,11 +148,11 @@ export class HomeComponent implements OnInit {
                 $('#home-books-img-dev').show();
                 //getting  the files id 
                 for(let i=0;i<this.bookImages.length;i++){
-                  this.fileId.push(this.bookImages[i]["associated_resources"]["files"][0]);
+                  this.fileIds.push(this.bookImages[i]["associated_resources"]["files"][0]);
                 }
                 //passing filesid to carousel
-                for(let index in this.fileId){
-                  this.addSlide(this.fileId[index]);
+                for(let index in this.fileIds){
+                  this.addSlide(this.fileIds[index]);
                 }
                 
               }
