@@ -53,7 +53,8 @@ export class ViewAllBooksComponent implements OnInit {
   public loadMore(){
       this.bookNames = [];
       this.imgFileIds = [];
-      
+      $('#load-more-btn-wrapper').css('display','none');
+      $('#loadding-gif-icon').show();
     this.setRepository().subscribe(
       data => {
         let httpImageParams = new HttpParams().set('selector_doc','{"jsonClass": "BookPortion"}')
@@ -68,21 +69,18 @@ export class ViewAllBooksComponent implements OnInit {
         .subscribe(          
           Response =>{
             this.bookDetails = Response;  
-            if(this.bookDetails.length != 0){
-              $('#load-more-btn-wrapper').show(); 
-
+            if(this.bookDetails.length != 0 ){ 
+              $('#loadding-gif-icon').css('display','none');
               for(let i=0;i<this.bookDetails.length;i++){
                 this.imgFileIds.push(this.bookDetails[i]["associated_resources"]["files"][0]);
                 this.bookNames.push(this.bookDetails[i]["title"]["chars"]); 
-                
-                if(this.bookDetails[i]["title"]["chars"]==null){
-                  $('#load-more-btn-wrapper').css('display','none');
-                }    
               }
-            
               for(let index in this.bookNames){             
                 this.addBookDetails(index,this.imgFileIds[index],this.bookNames[index]);
               }   
+            }
+            if(this.bookDetails.length >= 24){
+              $('#load-more-btn-wrapper').show();
             }else{             
               $('#load-more-btn-wrapper').css('display','none');
             } 
@@ -97,7 +95,7 @@ export class ViewAllBooksComponent implements OnInit {
   ngOnInit() {
    
     $('#load-more-btn-wrapper').css('display','none');
-    
+    $('#loadding-gif-icon').show();
   //  get book details
     this.setRepository().subscribe(
       data => {
@@ -113,7 +111,7 @@ export class ViewAllBooksComponent implements OnInit {
         .subscribe(          
           Response =>{
             this.bookDetails = Response;              
-           
+            $('#loadding-gif-icon').css('display','none');
             if(this.bookDetails.length != 0){
               $('#load-more-btn-wrapper').show(); 
               for(let i=0;i<this.bookDetails.length;i++){
@@ -129,10 +127,8 @@ export class ViewAllBooksComponent implements OnInit {
             } else{
               
               $('#load-more-btn-wrapper').css('display','none');
-            }  
-                           
+            }
           }
-          
         );
       }
     );
