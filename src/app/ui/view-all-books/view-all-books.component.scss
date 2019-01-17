@@ -55,15 +55,22 @@
 
 .load-more-btn{
     border: 1px solid #e2e2e2;
-    color: #000000;
+    color: #4c4c4c;
     background-color: #fff;
     font-family: sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     border-radius: 0px;
     padding: 3px;
     margin-top: 24px;
     width:140px;
     font-weight: 400;
+}
+.loading-gif-img{
+    width:45px;
+}
+#loadding-gif-icon{
+    text-align:center;
+    width:100%;
 }
 .all-books-back-button{
     float: right;
