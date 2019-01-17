@@ -34,16 +34,6 @@ export class AddBookComponent implements OnInit {
   @ViewChild('slickModal') slickModal;
 
   slides = [
-    {img: "http://placehold.it/400x150/37a8f5"},
-    {img: "http://placehold.it/400x150/37a8f5"},
-    {img: "http://placehold.it/400x150/37a8f5"},
-    {img: "http://placehold.it/400x150/37a8f5"},
-    {img: "http://placehold.it/400x150/37a8f5"},
-    {img: "http://placehold.it/400x150/37a8f5"},
-    {img: "http://placehold.it/400x150/37a8f5"},
-    {img: "http://placehold.it/400x150/37a8f5"},
-    {img: "http://placehold.it/400x150/37a8f5"},
-
   ];
 
   slideConfig = { "slidesToShow": 8, "slidesToScroll": 1,
