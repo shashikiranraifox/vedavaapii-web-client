@@ -372,7 +372,7 @@ export class AddBookComponent implements OnInit {
       withCredentials: true
     };
 
-    let request_params = "resource_json=" + JSON.stringify(requestJson);
+    let request_params = "resource_json=" + encodeURIComponent(JSON.stringify(requestJson));
     return this.http.post(this.endpointService.getBaseUrl() + '/ullekhanam/v1/resources', request_params,
       httpUploadOptions).subscribe(
         response => {
