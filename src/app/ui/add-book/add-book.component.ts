@@ -34,16 +34,6 @@ export class AddBookComponent implements OnInit {
   @ViewChild('slickModal') slickModal;
 
   slides = [
-    {img: "http://placehold.it/400x150/37a8f5"},
-    {img: "http://placehold.it/400x150/37a8f5"},
-    {img: "http://placehold.it/400x150/37a8f5"},
-    {img: "http://placehold.it/400x150/37a8f5"},
-    {img: "http://placehold.it/400x150/37a8f5"},
-    {img: "http://placehold.it/400x150/37a8f5"},
-    {img: "http://placehold.it/400x150/37a8f5"},
-    {img: "http://placehold.it/400x150/37a8f5"},
-    {img: "http://placehold.it/400x150/37a8f5"},
-
   ];
 
   slideConfig = { "slidesToShow": 8, "slidesToScroll": 1,
@@ -207,8 +197,8 @@ export class AddBookComponent implements OnInit {
 
     const uploadData = new FormData();
     uploadData.append('files', this.selectedPageFile);
-    uploadData.set("files_purpose", "pagination");
-    uploadData.set("resource_json", JSON.stringify(page_json));
+    uploadData.append("files_purpose", "pagination");
+    uploadData.append("resource_json", JSON.stringify(page_json));
 
 
     this.spinner.show();
@@ -302,7 +292,7 @@ export class AddBookComponent implements OnInit {
           } else if (errorCode == 401) {
             $("#error-add-book").text("Unauthorized call, session may have expired. Please login afresh and retry.");
           } else if (errorCode == 400) {
-            $("#error-add-book").text("Bad Request. Please contact the platform administartor.");
+            $("#error-add-book").text("Bad Request. Please contact the platform administrator.");
           }else{
             $("#error-upload-multi-pages").text("Unable to upload the selected pages. Please retry or contact the platform administrator.");
           }
@@ -372,7 +362,7 @@ export class AddBookComponent implements OnInit {
       withCredentials: true
     };
 
-    let request_params = "resource_json=" + JSON.stringify(requestJson);
+    let request_params = "resource_json=" + encodeURIComponent(JSON.stringify(requestJson));
     return this.http.post(this.endpointService.getBaseUrl() + '/ullekhanam/v1/resources', request_params,
       httpUploadOptions).subscribe(
         response => {
@@ -412,7 +402,7 @@ export class AddBookComponent implements OnInit {
           } else if (errorCode == 400) {
             $("#error-add-book").text("Bad Request. Please contact the platform administartor.");
           } else {
-            $("#error-add-book").text("Unknown erorr, please contact the platform administrator or retry after some time.");
+            $("#error-add-book").text("Unknown error, please contact the platform administrator or retry after some time.");
           }
 
           $("#error-add-book").css("display", "block");
@@ -520,7 +510,7 @@ export class AddBookComponent implements OnInit {
 
     const uploadData = new FormData();
     uploadData.append('files', this.selectedThumbnailFile);
-    uploadData.set("files_purpose", "thumbnail");
+    uploadData.append("files_purpose", "thumbnail");
 
     this.http.post(this.endpointService.getBaseUrl() + "/ullekhanam/v1/resources/"
       + this.uploadedBookId + "/files", uploadData, httpUploadOptions)
