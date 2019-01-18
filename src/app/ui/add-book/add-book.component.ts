@@ -292,7 +292,7 @@ export class AddBookComponent implements OnInit {
           } else if (errorCode == 401) {
             $("#error-add-book").text("Unauthorized call, session may have expired. Please login afresh and retry.");
           } else if (errorCode == 400) {
-            $("#error-add-book").text("Bad Request. Please contact the platform administartor.");
+            $("#error-add-book").text("Bad Request. Please contact the platform administrator.");
           }else{
             $("#error-upload-multi-pages").text("Unable to upload the selected pages. Please retry or contact the platform administrator.");
           }
