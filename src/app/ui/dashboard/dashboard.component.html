@@ -1,3 +1,18 @@
-<p>
-  This is the dashboard to be show after Login.
-</p>
+<app-signed-in-header></app-signed-in-header>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-6">
+           <a href="/annotator/dashboard"><h6 class="add-book-title">E-Bhashya</h6></a>
+        </div>
+         <div class="col-md-6 col-sm-6 col-6">
+        <a href="/annotator/add-book"> <div class="add-book-icon-holder">
+             <img src="assets/add-book.png" class="add-book-icon">
+             <span>Add Books</span>
+         </div></a>
+         </div>
+    </div>
+<div class="mirador-view" [innerHTML]="iframeHtml | safe: 'html'"></div>
+<br>
+<div #mirador_iframe></div>
+</div>

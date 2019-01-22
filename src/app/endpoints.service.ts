@@ -16,4 +16,13 @@ export class EndpointsService {
   getBaseUrl() {
     return 'https://api.vedavaapi.org/py';
   }
+
+  /**
+   * Returns Instance of Mirador Host.
+   * @returns String
+   * @memberof EndpointsService
+   */
+  getMiradorInstanceUrl() {
+    return 'http://localhost:8000';
+  }
 }

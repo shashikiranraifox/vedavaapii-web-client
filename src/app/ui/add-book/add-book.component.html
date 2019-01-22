@@ -1,0 +1,222 @@
+<app-signed-in-header></app-signed-in-header>
+<main role="main" class="container">
+  <div class="starter-template">
+    <div class="starter-add-book-template" id="upload_book_container">
+      <h6>Add Book(Step 1 of 3)</h6>
+      <hr class="horizontal-line">
+      <div class="row">
+        <div class="col-md-2 col-sm-3 col-6" style="display:none;">
+          <label for="book_thumbnail">Add Thumbnail</label>
+          <div class="add-book-thumbnail custom-file">
+            <input type="file" class="custom-file-input" id="book_thumbnail" lang="en" name="book_thumbnail">
+            <img src="assets/book-thumbnail.png" class="thumbnail-book-image">
+          </div>
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-12">
+          <div class="book-details-forms">
+            <div class="form-group">
+              <input maxlength="512" #book_title type="text" class="form-control" id="book_title" name="book_title"
+                required placeholder="Add Book title here" minlength="3" />
+              <span class="validation-error-message" id="book_title_minlength_error">Book title should be atleast 3
+                characters
+                long.</span>
+            </div>
+
+            <div class="form-group">
+              <input maxlength="512" #book_author type="text" class="form-control" id="book_author" required
+                placeholder="Add Author information" minlength="3" name="book_author" />
+              <span class="helper_text">Note: If there are multiple authors use comma seperated values.</span>
+              <span class="validation-error-message" id="book_author_minlength_error">Book author information should be
+                atleast 3 characters long.</span>
+            </div>
+
+            <div class="form-group">
+              <input maxlength="128" #book_type type="text" class="form-control" id="book_type" placeholder="Mention the type of book"
+                name="book_type" />
+              <span class="helper_text">Example: Manuscript, Palm leaf document, pdf, Normal book etc</span>
+            
+            </div>
+         
+          </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-12">
+          <div class="form-group">
+            <label for="book_description">Add Description</label>
+            <textarea required maxlength="1024" #book_description class="form-control add-book-text-area" id="book_description"
+              placeholder="Type here" rows="5" minlength="10" name="book_description"></textarea>
+            <span class="validation-error-message" id="book_description_minlength_error">Book description should be
+              atleast 10 characters long.</span>
+          </div>
+
+          <div class="add-book-button-wraper">
+            <a  href="/annotator/dashboard"><button class="btn add-book-cancel-btn">Cancel</button></a>
+            <button class="btn add-book-proceed-btn" type="button" (click)="createBookEntry(book_title.value, book_author.value,
+            book_type.value, book_description.value)">Proceed</button>
+          </div>
+          <span class="upload_error_message" id="error-add-book">Unknown error. Please retry after sometime.</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="starter-add-book-template" id="add_book_thumbnail_container" style="display:none;">
+      <span class="info-add-book" id="info-book-created">The book entry has been created. Please upload the thumbnail.</span>
+      <h6>Upload Thumbnail(Step 2 of 3)</h6>
+      <hr class="horizontal-line">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-12 upload-btn-layout">
+          <div class="add-book-thumbnail custom-file" style="float:none;">
+            <input type="file" class="custom-file-input" id="book_thumbnail" lang="en" name="book_thumbnail" (change)="onThumbnailFileChanged($event)"
+              #fileInput accept="image/png, image/jpeg, image/jpg">
+            <img id="img_book_thumbnail" src="assets/book-thumbnail.png" class="thumbnail-book-image">
+
+          </div>
+          <p class="upload-img-helper-text">Click to upload</p>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-12 upload-btn-layout">
+          <div class="add-book-skip-button-wrapper">
+            <button class="btn add-book-cancel-btn"  (click)="showAddPageComponents()">Skip</button>
+            <button class="btn add-book-proceed-btn" (click)="onThumbnailUpload()">Upload</button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-12">
+          <span class="upload_error_message" id="error-upload-thumbnail">Unknown error. Please retry after sometime.</span>
+        </div>
+      </div>
+
+    </div>
+    <div id="upload-bulk-image" style="display:none">
+        <div class="row">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-12">
+                  <div class="form-group input-files-upload-form">
+                    <label class="control-label" for="multiple-pages-images-files" id="multi-pages-upload-info">Please upload JPEG or PNG
+                      files.</label>
+                    <input type="file" name="multiple-pages-images-files" id="multiple-pages-images-files" class="filestyle" data-icon="false"
+                      #fileInput (change)="onMultiPageImageSelected($event)" multiple accept="image/png, image/jpeg, image/jpg">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-12 upload-page-btn-layout">
+                  <span class="upload_error_message" id="error-upload-multi-pages">Unable to upload pages. Please retry or
+                    contact the platform administrator.</span>
+    
+                  <div class="add-book-finish-upload-button-wrapper">
+                    <a href="/annotator/dashboard"><button class="btn add-book-cancel-btn">Finish</button></a>
+                    <button class="btn add-book-proceed-btn" (click)="onMultiPageUpload($scope)">Upload</button>
+                  </div>
+                </div>
+              </div>
+            </div>    
+        </div>
+    </div>
+
+
+    <div class="starter-add-book-template" id="add_page_container" style="display:none;">
+        <p class="text-want-upload-bulk-books">if you want to upload books in bulk, please click <button class="upload-bulk-books-button" (click)="showBulkUploadBooks()">here</button></p>
+      <h6>Add Pages(Step 3 of 3)</h6>
+      <hr class="horizontal-line">
+      <div class="row">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-12">
+              <div class="form-group input-files-upload-form">
+                <label class="control-label" for="page-image-file" id="info-upload-page">Please upload a JPEG or PNG
+                  file.</label>
+                <input type="file" name="page-image-file" id="page-image-file" class="filestyle" data-icon="false"
+                  #fileInput (change)="onPageImageSelected($event)" accept="image/png, image/jpeg, image/jpg">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-12 upload-page-btn-layout">
+              <span class="upload_error_message" id="error-upload-page">Unable to upload the page. Please retry or
+                contact the platform administrator.</span>
+
+              <div class="add-book-finish-upload-button-wrapper">
+                <a href="/annotator/dashboard"><button class="btn add-book-cancel-btn">Finish</button></a>
+                <button class="btn add-book-proceed-btn" (click)="onPageUpload()">Upload</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-12">
+          <div class="add-images-carousel">
+
+            <p id="book-title-carousel"  class="text-truncate" title="{{bookTitle}}">(Book title comes here)</p>
+            <hr class="horizontal-line">
+            <div class="col-md-12 col-sm-12 col-12 appoinments-carousel">
+              <div id="ca-container" class="ca-container">
+                <div class="ca-nav">
+                  <span class="ca-nav-prev" (click)="slideLeft()"><img src="assets/carousel-left-chev.png" class="arrow-span"></span>
+                  <span class="ca-nav-next" (click)="slideRight()"><img src="assets/carousel-right-chev.png" class="arrow-span"></span>
+                </div>
+                <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig" (init)="slickInit($event)"
+                  (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)" (beforeChange)="beforeChange($event)">
+                  <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+                    <div class="ca-item ca-item-1">
+                      <div class="ca-item-main">
+                        <img src="{{ slide.img }}" alt="" width="100%">
+                      </div>
+                    </div>
+                  </div>
+                </ngx-slick-carousel>
+              </div>
+
+            </div>
+
+            <!-- <button (click)="addSlide()">Add</button>
+            <button (click)="removeSlide()">Remove</button>
+            <button (click)="slickModal.slickGoTo(2)">slickGoto 2</button>
+            <button (click)="slickModal.unslick()">unslick</button> -->
+          </div>
+        </div>
+      </div>
+
+
+      <!-- <div class="row" style="display:none;">
+        <div class="col-md-12 col-sm-12 col-12">
+          <div class="add-images-carousel">
+            <p>Books &gt; A Beidle Path in Tahiti</p>
+            <hr class="horizontal-line">
+            <div class="col-md-12 col-sm-12 col-12 appoinments-carousel">
+              <div id="ca-container" class="ca-container">
+                <div class="ca-nav">
+                  <span class="ca-nav-prev"><img src="assets/carousel-left-chev.png" class="arrow-span"></span>
+                  <span class="ca-nav-next"><img src="assets/carousel-right-chev.png" class="arrow-span"></span>
+                </div>
+                <div class="ca-wrapper">
+                  <div class="ca-item ca-item-1">
+                    <div class="ca-item-main">
+                      <div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIdDZmWqwNFgxxoRLg12rDUTGKyOgqFFhPBqQlIW0zH9LVVPykQQ"
+                          class="carousel-inside-img">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+ -->
+    </div>
+    <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="large" color="#fff" type="timer">
+    </ngx-spinner>
+
+  </div>
+
+
+</main><!-- /.container -->

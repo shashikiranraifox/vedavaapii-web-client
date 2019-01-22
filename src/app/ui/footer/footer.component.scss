@@ -1,0 +1,76 @@
+
+footer{
+    border-top: 1px solid #e2e2e2;
+    padding-top: 30px;
+    padding-bottom: 40px;
+}
+
+.footer-vedavaapii-logo{
+    height: 43px;
+    text-align: center; 
+      
+}
+
+@media(max-width:996px){
+    .footer-vedavaapii-logo{
+       text-align: left;
+       float: left;
+       margin-bottom: 15px;
+    }
+}
+.footer-logo-holder{
+    text-align: center;
+    width: 100%;
+}
+.soc-icons{
+    width: fit-content;
+}
+.footer-links{
+    h6{
+        color:#1c75bc;
+        font-family: sans-serif;
+        padding: .25rem 0px;
+        text-align: left;
+        font-size: 15px;
+        font-weight: 500;
+        margin-bottom: 3px;
+    }
+    ul{
+        padding-left: 0px;
+        color: #a3a3a3 !important;
+        font-weight: 200;
+       li{
+            list-style: none;
+            color: #a3a3a3 !important;
+            font-family: sans-serif;  
+            text-align: left;
+            font-weight: 200;
+            font-size: 15px;
+        }
+        a{
+            color: #a3a3a3;
+            font-family: sans-serif;
+            font-weight: 200;
+            font-size: 13px;
+        }
+    }
+}
+
+.footer-icons{
+    height: 38px;
+    margin-right: 10px;
+}
+.footer-horizontal-line{
+    margin-bottom: 5px;
+}
+.powered-by-text{
+    color: #1c75bc;
+    font-family: sans-serif;
+    font-size: 15px;
+    width: 100%;
+    text-align: center;
+}
+.raifox-logo{
+    height: 20px;
+
+}

@@ -1,0 +1,74 @@
+.starter-template {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+.header-vedavaapii-logo-login{
+    width: 220px;
+}
+.navbar .navbar-nav{
+    margin-left: auto;
+}
+.navbar {
+    padding: 0px;
+}
+.navbar .navbar-nav li a{
+    color:#4c4c4c;
+    font-family: sans-serif;
+    padding: .25rem 0px;
+    text-align: left;
+    font-size: 16px;
+}
+.nav-link:active {
+    color: #1c75bc;
+
+}
+
+.navbar-nav .dropdown .dropdown-menu{
+    right: 0;
+    left: auto;
+    width: 100px;
+    border-color: #1c75bc #e2e2e2 #e2e2e2;
+    border-radius: 0px;
+    border-top: 3px solid #1c75bc;
+    box-shadow: 0.1rem 0.1rem #4c4c4c!important;
+}
+.navbar-nav .dropdown .dropdown-menu a{
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+}
+.navbar-nav .show>.nav-link {
+
+    color: #1c75bc;
+}
+.dropdown-item:hover {
+    color: #1c75bc !important;
+    text-decoration: none;
+    background-color: #fff;
+}
+.navbar-toggler-icon {
+    color: #fff;
+}
+.navbar-toggler-icon:hover {
+    background: #e2e2e2;
+}
+@media(max-width:766px){
+    .header-vedavaapii-logo{
+        width: 215px;
+    }
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#4c4c4c' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
+}
+.user-pic-header{
+    width: 25px;
+   
+}
+.header{
+    position: relative;
+}
+.vedavaapi-nav-menu-title {
+    padding-right: .5rem;
+    padding-left: .5rem;
+}
