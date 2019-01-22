@@ -6,7 +6,7 @@ import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/co
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  iframeHtml = '<iframe title="Mirador" src="http://localhost:8000/collection_test.html" allowfullscreen="true"'
+  iframeHtml = '<iframe title="Mirador" src="http://localhost:8000" allowfullscreen="true"'
   + ' width="100%" height="100%" style="height:1000px;border: 0px;"'
   + ' webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
   
