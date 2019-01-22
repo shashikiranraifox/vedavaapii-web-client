@@ -1,0 +1,14 @@
+version: '3.5'
+
+services:
+
+  vedavaapi-web-client:
+    container_name: vedavaapi-web-client
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - '4200:4200'

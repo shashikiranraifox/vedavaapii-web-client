@@ -31,6 +31,11 @@ export class AddBookComponent implements OnInit {
 
   private  pageFilesArraySelected: Array<File> = [];
 
+  private pageNumberBeingUploaded: number = 0;
+  private totalPagesUploaded: number = 0;
+  private lastPageUploadAttempted = 0;
+ 
+  
   @ViewChild('slickModal') slickModal;
 
   slides = [
@@ -229,8 +234,8 @@ export class AddBookComponent implements OnInit {
       );
   }
   
-   /**
-   *  Upload multiple pages of a book.
+  /**
+   *  Method is called when user chooses to upload many pages of book at once.
    * 
    */
   onMultiPageUpload(){
@@ -247,8 +252,7 @@ export class AddBookComponent implements OnInit {
       return;
     }
     
-    var json_array = [];
-    var single_page_meta_data = {
+    let single_page_meta_data = {
       jsonClass: "Page",
       purpose: "page",
       selector: {
@@ -257,47 +261,95 @@ export class AddBookComponent implements OnInit {
       source: this.uploadedBookId,
     };
    
-
     const httpUploadOptions = {
       headers: new HttpHeaders({ 'Accept': 'application/json' }),
       withCredentials: true
     };
-   
-    const formData: any = new FormData();
-    formData.set("files_purpose", "pagination");
-    for(let i =0; i < this.pageFilesArraySelected.length; i++) {
-      json_array.concat(single_page_meta_data);
-      formData.append("files", this.pageFilesArraySelected[i]);
-    }
-    formData.set("resource_json", JSON.stringify(json_array));
-    
-   
+  
+    let totalPageCount: number =  this.pageFilesArraySelected.length;
+    this.pageNumberBeingUploaded = 0;
+    this.lastPageUploadAttempted = 0;
+
+    $("#error-upload-multi-pages").css("display", "none");
+    $('#multi-pages-upload-info').text("Uploading pages...");
+    //show the spinner
     this.spinner.show();
-    return this.http.post(this.endpointService.getBaseUrl() + '/ullekhanam/v1/resources', formData,
-      httpUploadOptions).subscribe(
-        response => {
-          this.spinner.hide();
-          $('#multiple-pages-images-files').val('');
-          $('#multi-pages-upload-info').text("Pages uploaded successfully. Continue to add more pages or click on Finish to go to the dashboard.");
-          //Uploads sample Page; replace with original Page thumbnail
-          this.addSlide();
-          this.pageFilesArraySelected = null;
-        },
-        error => {
-          this.spinner.hide();
-          $("#error-upload-multi-pages").css("display", "block");
-          let errorCode = this.getResponseErrorCode(error);
-          if (errorCode == 403) {
-            $("#error-add-book").text("Repository not set, perhaps login was not proper. Please logout and login afresh before next attempt.");
-          } else if (errorCode == 401) {
-            $("#error-add-book").text("Unauthorized call, session may have expired. Please login afresh and retry.");
-          } else if (errorCode == 400) {
-            $("#error-add-book").text("Bad Request. Please contact the platform administrator.");
-          }else{
-            $("#error-upload-multi-pages").text("Unable to upload the selected pages. Please retry or contact the platform administrator.");
-          }
-        }
-    );
+
+    for(let i = 0; i < totalPageCount; i++) {
+      this.pageNumberBeingUploaded = i;
+      console.log("Uploading page " + (i + 1));
+
+      const formData: any = new FormData();
+      formData.append("files_purpose", "pagination");
+      formData.append("files", this.pageFilesArraySelected[i]);
+      formData.append("resource_json", JSON.stringify(single_page_meta_data));
+
+
+      this.http.post(this.endpointService.getBaseUrl() + '/ullekhanam/v1/resources', formData,
+        httpUploadOptions).subscribe(
+          response => {
+            this.lastPageUploadAttempted = this.lastPageUploadAttempted + 1;
+            this.totalPagesUploaded = this.totalPagesUploaded + 1;
+            this.addSlide();
+
+            console.log("Total Number of pages: " + totalPageCount);
+            console.log("Total pages uploaded: " + this.totalPagesUploaded);
+            console.log("Uploaded page " + this.pageNumberBeingUploaded);
+            
+            $('#multi-pages-upload-info').text("Successfully uploaded page " + (this.pageNumberBeingUploaded + 1));
+            if(this.lastPageUploadAttempted  == totalPageCount){
+              console.log(" Should come here in the end. ONLY ONCE: " + this.pageNumberBeingUploaded);
+              this.spinner.hide();
+              $('#multiple-pages-images-files').val('');
+              if(this.totalPagesUploaded == totalPageCount){
+                $('#multi-pages-upload-info').text("All Pages uploaded successfully. Continue to add more pages or click on Finish to go to the dashboard.");
+              }else {
+                $("#error-upload-multi-pages").css("display", "block");
+                $('#error-upload-multi-pages').text("Only " + this.totalPagesUploaded  + " pages uploaded. Continue to add more pages or click on Finish to go to the dashboard.");
+              }
+              this.pageFilesArraySelected = null;
+              this.totalPagesUploaded = 0;
+              this.pageNumberBeingUploaded = 0;
+              this.lastPageUploadAttempted = 0;
+            }
+          },
+          error => {
+
+            this.lastPageUploadAttempted = this.lastPageUploadAttempted + 1;
+          
+            console.log("Total Number of pages: " + totalPageCount);
+            console.log("Total pages uploaded: " + this.totalPagesUploaded);
+            console.log("Could not upload page " + this.pageNumberBeingUploaded);
+            
+            if(this.lastPageUploadAttempted == totalPageCount) {
+              this.spinner.hide();
+              $('#multiple-pages-images-files').val('');
+              $('#multi-pages-upload-info').css("display", "none");
+              $("#error-upload-multi-pages").css("display", "block");
+           
+              if(this.totalPagesUploaded == 0) {
+                //Means no pages were uploaded at all.
+                let errorCode = this.getResponseErrorCode(error);
+                if (errorCode == 403) {
+                  $("#error-add-book").text("No Pages uploaded. Repository not set, perhaps login was not proper, please logout and login afresh before next attempt.");
+                } else if (errorCode == 401) {
+                  $("#error-add-book").text("No Pages uploaded. Unauthorized call, session may have expired, please login afresh and retry.");
+                } else if (errorCode == 400) {
+                  $("#error-add-book").text("No Pages uploaded. Bad Request, please contact the platform administrator.");
+                }else{
+                  $("#error-upload-multi-pages").text("Unable to upload any of the selected pages. Network may be down, please retry or contact the platform administrator if there there no issues of network availability.");
+                }
+              }else{
+                $('#error-upload-multi-pages').text("Only " + this.totalPagesUploaded  + " pages uploaded. Continue to add more pages or click on Finish to go to the dashboard.");
+              }
+              this.pageFilesArraySelected = null;
+              this.totalPagesUploaded = 0;
+              this.pageNumberBeingUploaded = 0;
+              this.lastPageUploadAttempted = 0;
+            }
+          } //error
+      );
+    }
   }
 
 
