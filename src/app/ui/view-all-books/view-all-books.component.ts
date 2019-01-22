@@ -61,7 +61,7 @@ export class ViewAllBooksComponent implements OnInit {
          .set('associated_resources','{"files": {"purpose":"thumbnail"}}')
          .set('start',this.showCount.toString()).set('numbers','24');
          this.showCount = this.showCount + 24;
-         let httpImageHeaders : HttpHeaders = new HttpHeaders({
+        let httpImageHeaders : HttpHeaders = new HttpHeaders({
           'Content-Type':'application/json',
         });  
         
