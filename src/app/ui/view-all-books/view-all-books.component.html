@@ -17,7 +17,7 @@
       <div class="col-md-12 col-sm-12 col-12 books-list-row">
         <div class="row">
               <div class="book-img-holder" *ngFor="let index of bookStoreData">
-                  <img src="{{index.img}}" class="book-img" >
+                  <img src="{{index.img}}" class="book-img" data-toggle="tooltip" data-placement="top" title="{{index.Name}}">
                   <p class="text-truncate">{{index.Name}}</p>
               </div>
         </div>
