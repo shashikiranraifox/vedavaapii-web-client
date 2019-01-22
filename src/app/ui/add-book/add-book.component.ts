@@ -340,8 +340,7 @@ export class AddBookComponent implements OnInit {
           response => {
             this.lastPageUploadAttempted = this.lastPageUploadAttempted + 1;
             this.totalPagesUploaded = this.totalPagesUploaded + 1;
-            this.addSlide();
-
+            
             console.log("Total Number of pages: " + totalPageCount);
             console.log("Total pages uploaded: " + this.totalPagesUploaded);
             console.log("Uploaded page " + this.pageNumberBeingUploaded);
