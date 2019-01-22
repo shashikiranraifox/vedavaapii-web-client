@@ -31,13 +31,14 @@ export class AddBookComponent implements OnInit {
 
   private  pageFilesArraySelected: Array<File> = [];
 
+
   @ViewChild('slickModal') slickModal;
 
-  slides = [
-  ];
+  slides = [];
+  
 
   slideConfig = { "slidesToShow": 8, "slidesToScroll": 1,
-
+   
   responsive: [
     {
       breakpoint: 1200,
@@ -74,8 +75,10 @@ export class AddBookComponent implements OnInit {
 
   };
 
-  addSlide() {
-    this.slides.push({ img: "http://placehold.it/400x150/37a8f5" })
+  addSlide(fileIds) {
+    if(fileIds !=null){
+      this.slides.push({img: "https://api.vedavaapi.org/py/iiif_image/v1/demo/ullekhanam/"+fileIds+"/full/90,/0/default.jpg"});
+    }
     this.slideConfig.slidesToScroll = this.bookPageCount;
   }
 
@@ -116,6 +119,7 @@ export class AddBookComponent implements OnInit {
     }//if
     this.slickModal.slickGoTo(this.currentPageIndex);
   }
+  
 
   constructor(private endpointService: EndpointsService, private http: HttpClient,
     private spinner: NgxSpinnerService) {
@@ -124,8 +128,7 @@ export class AddBookComponent implements OnInit {
 
   ngOnInit() {
     //this.uploadedBookId = "5c178cd0656e3964db0e160b";//Test book
-    this.currentPageIndex = 0;
-    
+    this.currentPageIndex = 0; 
   }
 
 
@@ -197,19 +200,28 @@ export class AddBookComponent implements OnInit {
 
     const uploadData = new FormData();
     uploadData.append('files', this.selectedPageFile);
-    uploadData.append("files_purpose", "pagination");
+    uploadData.append("files_purpose", "thumbnail");
     uploadData.append("resource_json", JSON.stringify(page_json));
 
 
-    this.spinner.show();
+     this.spinner.show();
     return this.http.post(this.endpointService.getBaseUrl() + '/ullekhanam/v1/resources', uploadData,
       httpUploadOptions).subscribe(
         response => {
-          this.spinner.hide();
           $('#page-image-file').val('');
           $('#info-upload-page').text("Page uploaded successfully. Continue to add more pages or click on Finish to go to the dashboard.");
-          //Uploads sample Page; replace with original Page thumbnail
-          this.addSlide();
+
+          try {
+            if(response != null){
+              let resource_id = response[0]["_id"];
+              this.getThumbnailId(resource_id);
+            }else{
+              this.spinner.hide();
+            }  
+          } catch (error) {
+            this.spinner.hide();
+          }
+          //Uploads Page thumbnail
           this.selectedPageFile = null;
         },
         error => {
@@ -227,6 +239,46 @@ export class AddBookComponent implements OnInit {
           }
         }
       );
+  }
+
+
+
+
+  /**
+   * Fetches the thumbnail from server and displays the same in the carousel.
+  */
+  getThumbnailId(resource_id: any){
+
+    if(resource_id == null){
+      return;
+    }//if
+
+    let httpThumbnailIdparams = new HttpParams()
+      .set('associated_resources','{"files": {"purpose":"thumbnail"}}');
+
+    let httpThumbnailHeaders : HttpHeaders = new HttpHeaders({
+      'Content-Type':'application/json',
+    });                            
+    this.http.get(this.endpointService.getBaseUrl() + '/ullekhanam/v1/resources/' + resource_id ,  {headers:httpThumbnailHeaders,params:httpThumbnailIdparams,withCredentials: true,})
+    .subscribe(          
+      response =>{
+        this.spinner.hide();
+        try {
+          if(response != null){
+            let fileIdArray:any = [];
+            fileIdArray.push(response["associated_resources"]["files"]);
+            this.addSlide(fileIdArray[0]);
+          }  
+        } catch (error) {
+          
+        }
+      },
+      error=> {
+        this.spinner.hide();
+      }
+    );
+
+
   }
   
    /**
@@ -280,7 +332,7 @@ export class AddBookComponent implements OnInit {
           $('#multiple-pages-images-files').val('');
           $('#multi-pages-upload-info').text("Pages uploaded successfully. Continue to add more pages or click on Finish to go to the dashboard.");
           //Uploads sample Page; replace with original Page thumbnail
-          this.addSlide();
+         
           this.pageFilesArraySelected = null;
         },
         error => {
