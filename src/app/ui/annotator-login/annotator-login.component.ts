@@ -8,9 +8,12 @@ import { Router } from '@angular/router';
   templateUrl: './annotator-login.component.html',
   styleUrls: ['./annotator-login.component.scss']
 })
+
+/**
+ * Has Methods to login as annotator.
+ */
 export class AnnotatorLoginComponent implements OnInit {
 
-  repo_name$: Object;
   constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
@@ -18,8 +21,6 @@ export class AnnotatorLoginComponent implements OnInit {
     //   this.router.navigate(['annotator/dashboard']);
     // }
   }
-
-
 
   /**
    *

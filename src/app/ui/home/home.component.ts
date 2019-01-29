@@ -14,8 +14,8 @@ export class HomeComponent implements OnInit {
 
 
   private currentPageIndex: number;
-  public bookImages : any;
-  public fileIds:string[] = [];
+
+  private bookImages: any;
   
   @ViewChild('slickModal') slickModal;
    
@@ -63,7 +63,9 @@ export class HomeComponent implements OnInit {
 
   addSlide(fileIds) {
     if(fileIds !=null){
-      this.slides.push({img: "https://api.vedavaapi.org/py/iiif_image/v1/demo/ullekhanam/"+fileIds+"/full/100,150/0/default.jpg"});
+      this.slides.push({img: this.endpointService.getBaseUrl() + "/iiif_image/v1/"
+       + this.endpointService.getRepositoryName()
+       + "/ullekhanam/"+fileIds+"/full/100,150/0/default.jpg"});
     }else{
       this.slides.push({img:"assets/default-book-īmg.png"});
     }
@@ -130,37 +132,39 @@ export class HomeComponent implements OnInit {
     
     $('#home-books-img-dev').css('display', 'none');
     this.setRepository().subscribe(
-      data => {
-          let params = new HttpParams().set('selector_doc','{"jsonClass": "BookPortion"}')
-                  .set('associated_resources','{"files": {"purpose":"thumbnail"}}')
-                  .set('start','0').set('numbers','16');              
+      success => {
+          let params = new HttpParams()
+                  .append('selector_doc','{"jsonClass": "BookPortion"}')
+                  .append('associated_resources','{"files": {"purpose":"thumbnail"}}')
+                  .append('start','0').set('numbers','16');              
+
           let headers: HttpHeaders = new HttpHeaders({
               'Content-Type':'application/json',
           });          
         
-         this.http.get(this.endpointService.getBaseUrl() + '/ullekhanam/v1/resources' , {headers:headers,params:params,withCredentials: true,})
+         this.http.get(this.endpointService.getBaseUrl() + '/ullekhanam/v1/resources' ,
+               {headers:headers,params:params,withCredentials: true,})
          .subscribe(
-            Response  => {
-              
-              this.bookImages = Response;
-
-              if(this.bookImages.length != 0){
+            response  => {
+              this.bookImages = response;
+              if(this.bookImages != null && this.bookImages.length != 0){
                 $('#home-books-img-dev').show();
                 //getting  the files id 
                 for(let i=0;i<this.bookImages.length;i++){
-                  this.fileIds.push(this.bookImages[i]["associated_resources"]["files"][0]);
-                }
-                //passing filesid to carousel
-                for(let index in this.fileIds){
-                  this.addSlide(this.fileIds[index]);
-                }
-                
-              }
-             
+                  var bookImage = this.bookImages[i];
+                  if(bookImage == null){
+                    continue;
+                  }
+                  if(bookImage.hasOwnProperty("associated_resources") && bookImage["associated_resources"].hasOwnProperty("files")){
+                    this.addSlide(bookImage["associated_resources"]["files"][0]);
+                  }
+                }//for
+               
+              }//if
             },
           );                   
-      }
-     
+      },
+      error => null
     );  
   }
 }

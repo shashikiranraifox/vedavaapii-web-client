@@ -54,7 +54,7 @@ export class LoginService {
   setRepository() {
     const httpUploadOptions = { headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'}), 
                         withCredentials: true };
-    return this.http.post(this.endpointService.getBaseUrl() + '/store/v1/repos', 'repo_name=demo',
+    return this.http.post(this.endpointService.getBaseUrl() + '/store/v1/repos', 'repo_name=' + this.endpointService.getRepositoryName(),
      httpUploadOptions);
   }
 
@@ -130,7 +130,6 @@ export class LoginService {
         console.log('Set Repository failed ', error);
         if (errorCB != null) {
           errorCB('Unable to initialize Vedavaapi service. Please retry after some time.');
-
         }
       }
     );
