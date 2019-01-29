@@ -80,7 +80,7 @@ export class AddBookComponent implements OnInit {
 
   addSlide(fileIds) {
     if(fileIds !=null){
-      this.slides.push({img: "https://api.vedavaapi.org/py/iiif_image/v1/demo/ullekhanam/"+fileIds+"/full/90,/0/default.jpg"});
+      this.slides.push({img: this.endpointService.getBaseUrl() + "/iiif_image/v1/" + this.endpointService.getRepositoryName() + "/ullekhanam/"+fileIds+"/full/90,/0/default.jpg"});
     }
     this.slideConfig.slidesToScroll = this.bookPageCount;
   }
@@ -130,7 +130,6 @@ export class AddBookComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.uploadedBookId = "5c178cd0656e3964db0e160b";//Test book
     this.currentPageIndex = 0; 
   }
 
@@ -257,7 +256,7 @@ export class AddBookComponent implements OnInit {
     }//if
 
     let httpThumbnailIdparams = new HttpParams()
-      .set('associated_resources','{"files": {"purpose":"thumbnail"}}');
+      .append('associated_resources','{"files": {"purpose":"thumbnail"}}');
 
     let httpThumbnailHeaders : HttpHeaders = new HttpHeaders({
       'Content-Type':'application/json',
